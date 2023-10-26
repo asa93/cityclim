@@ -1,5 +1,3 @@
-import styles from "./sidebar.module.css";
-
 import Link from "next/link";
 
 import Drawer from "@mui/material/Drawer";
