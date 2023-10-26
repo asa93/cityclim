@@ -25,12 +25,12 @@ body {
 }
 
 a {
-  color: #0070f3;
+  color: white;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 img {
@@ -39,5 +39,13 @@ img {
 }
 
 .textfield {
-  color: white;
+  color: black;
+  background-color: white;
+}
+
+.MuiDrawer-paper{
+  background-color:#055681
+}
+.MuiTypography-root, .MuiSvgIcon-root{
+  color:white
 }

@@ -9,6 +9,8 @@ import Link from "next/link";
 const name = "[Your Name]";
 export const siteTitle = "Next.js Sample Website";
 
+import SideBar from "./sidebar";
+
 export default function Layout({ children, home, title }) {
   return (
     <div className={styles.container}>
@@ -59,7 +61,10 @@ export default function Layout({ children, home, title }) {
           </>
         )}
       </header>
-      <main>{children}</main>
+      <main>
+        <SideBar />
+        {children}
+      </main>
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">← Back to home</Link>

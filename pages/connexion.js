@@ -1,10 +1,6 @@
-import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
+
 import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
-import Image from "next/image";
 
 import { Grid, Button, TextField } from "@mui/material";
 
@@ -51,8 +47,6 @@ export default function Home({ allPostsData }) {
 
         <Button variant="contained">Connexion</Button>
       </Grid>
-
-      <section className={utilStyles.headingMd}></section>
     </Layout>
   );
 }
