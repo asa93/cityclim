@@ -16,10 +16,7 @@ export default function Layout({ children, home, title }) {
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
+        <meta name="description" content="CityClim App" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -29,13 +26,7 @@ export default function Layout({ children, home, title }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Script
-        src="https://connect.facebook.net/en_US/sdk.js"
-        strategy="lazyOnload"
-        onLoad={() =>
-          console.log(`script loaded correctly, window.FB has been populated`)
-        }
-      />
+
       <header className={styles.header}>
         {home ? (
           <>
@@ -65,11 +56,6 @@ export default function Layout({ children, home, title }) {
         <SideBar />
         {children}
       </main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )}
     </div>
   );
 }

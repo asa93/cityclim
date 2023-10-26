@@ -1,3 +1,5 @@
+import styles from "./layout.module.css";
+
 import Link from "next/link";
 
 import Drawer from "@mui/material/Drawer";
@@ -20,12 +22,14 @@ export default function SideBar({ children, home, title }) {
     <Drawer variant="persistent" anchor={"left"} open={true}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <BuildIcon fontSize="large" />
-            </ListItemIcon>
-            <ListItemText primary="Maintenance" />
-          </ListItemButton>
+          <Link href={`/`}>
+            <ListItemButton>
+              <ListItemIcon>
+                <BuildIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Maintenance" />
+            </ListItemButton>
+          </Link>
         </ListItem>
 
         <ListItem disablePadding>
@@ -38,12 +42,12 @@ export default function SideBar({ children, home, title }) {
         </ListItem>
 
         <ListItem disablePadding>
-          <Link href={`/`}>
+          <Link href={`/clients`}>
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="Chercher" />
+              <ListItemText primary="Clients" />
             </ListItemButton>
           </Link>
         </ListItem>

@@ -43,9 +43,10 @@ img {
   background-color: white;
 }
 
-.MuiDrawer-paper{
+.MuiDrawer-paper, .MuiPaper-root{
   background-color:#055681
 }
-.MuiTypography-root, .MuiSvgIcon-root{
-  color:white
+ 
+.MuiDrawer-paper a {
+  color:black
 }

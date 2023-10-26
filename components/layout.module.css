@@ -15,4 +15,10 @@
   margin: 3rem 0 0;
 }
 
+.MuiDrawer-paper, .MuiPaper-root{
+  background-color:#055681
+}
  
+.MuiDrawer-paper a {
+  color:black
+}
