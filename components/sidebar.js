@@ -10,15 +10,15 @@ import BuildIcon from "@mui/icons-material/Build";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import SensorDoorIcon from "@mui/icons-material/SensorDoor";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-import { ACTION } from "next/dist/client/components/app-router-headers";
 
 export default function SideBar({ children, home, title }) {
   return (
@@ -56,12 +56,23 @@ export default function SideBar({ children, home, title }) {
         </ListItem>
 
         <ListItem disablePadding>
-          <Link href={`/clients`}>
+          <Link href={`/accounts`}>
             <ListItemButton>
               <ListItemIcon>
-                <SearchIcon fontSize="large" />
+                <AccountBalanceIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="Clients" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <Link href={`/places`}>
+            <ListItemButton>
+              <ListItemIcon>
+                <SensorDoorIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Locaux" />
             </ListItemButton>
           </Link>
         </ListItem>

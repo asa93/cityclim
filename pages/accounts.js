@@ -25,7 +25,7 @@ export default function Clients({ allPostsData }) {
   const [showForm, setShowForm] = useState(false);
 
   const [{ data: accounts, loading, error }, refetch] = useAxios({
-    url: "/api/clients",
+    url: "/api/accounts",
     params: { name: nameFilter },
   });
 
@@ -33,7 +33,7 @@ export default function Clients({ allPostsData }) {
     console.log(newName, newAddress);
 
     if (newName)
-      await axios.post("/api/clients", {
+      await axios.post("/api/accounts", {
         name: newName,
         address: newAddress,
       });
