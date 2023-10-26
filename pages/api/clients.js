@@ -7,10 +7,13 @@ const supabase = createClient(
 );
 
 export default async (req, res) => {
-  console.log("req", req.query);
+  const { name } = req.query;
 
   if (req.method == "GET") {
-    let { data, error } = await supabase.from("Accounts").select("*");
+    let { data, error } = await supabase
+      .from("Accounts")
+      .select("*")
+      .ilike("name", `%${name}%`);
 
     //console.log("data", Accounts, error);
 

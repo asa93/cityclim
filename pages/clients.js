@@ -13,13 +13,19 @@ import Paper from "@mui/material/Paper";
 import { Grid, Button, TextField } from "@mui/material";
 
 import useAxios from "axios-hooks";
+import React, { useState } from "react";
 
 export default function Clients({ allPostsData }) {
-  const [{ data: accounts, loading, error }, refetch] =
-    useAxios("/api/clients");
+  const [nameFilter, setNameFilter] = useState("");
 
-  console.log("data", accounts);
+  const [{ data: accounts, loading, error }, refetch] = useAxios({
+    url: "/api/clients",
+    params: { name: nameFilter },
+  });
 
+  const handleNameChange = (e) => {
+    setNameFilter(e.target.value);
+  };
   if (accounts)
     return (
       <Layout home title={"Clients"}>
@@ -28,7 +34,7 @@ export default function Clients({ allPostsData }) {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <TextField label="Nom" />
+                  <TextField label="Nom" onChange={handleNameChange} />
                 </TableCell>
 
                 <TableCell align="right">Addresse</TableCell>
