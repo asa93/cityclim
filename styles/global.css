@@ -16,6 +16,8 @@ body {
     sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  background-color: #062949;
+  color:white
 }
 
 * {
@@ -34,4 +36,8 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+.textfield {
+  color: white;
 }
