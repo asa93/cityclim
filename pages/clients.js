@@ -14,6 +14,8 @@ import { Grid, Button, TextField } from "@mui/material";
 
 import useAxios from "axios-hooks";
 import React, { useState } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Add } from "@mui/icons-material";
 
 export default function Clients({ allPostsData }) {
   const [nameFilter, setNameFilter] = useState("");
@@ -29,6 +31,10 @@ export default function Clients({ allPostsData }) {
   if (accounts)
     return (
       <Layout home title={"Clients"}>
+        <Button variant="contained">
+          <AddCircleIcon />
+        </Button>
+
         <TableContainer component={Paper}>
           <Table sx={{}} aria-label="simple table">
             <TableHead>

@@ -33,12 +33,14 @@ export default function SideBar({ children, home, title }) {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <ReceiptIcon fontSize="large" />
-            </ListItemIcon>
-            <ListItemText primary="Devis" />
-          </ListItemButton>
+          <Link href={`/`}>
+            <ListItemButton>
+              <ListItemIcon>
+                <ReceiptIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Devis" />
+            </ListItemButton>
+          </Link>
         </ListItem>
 
         <ListItem disablePadding>

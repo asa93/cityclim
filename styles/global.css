@@ -43,10 +43,18 @@ img {
   background-color: white;
 }
 
-.MuiDrawer-paper, .MuiPaper-root{
-  background-color:#055681
+.MuiDrawer-paper{
+  background-color:#055681 !important
 }
  
-.MuiDrawer-paper a {
-  color:black
+.MuiDrawer-paper a, .MuiDrawer-paper .MuiSvgIcon-root {
+  color:white
+}
+
+.MuiButton-root {
+  background-color: #2BC48A !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #0fbd7a !important;
 }
