@@ -53,8 +53,19 @@ img {
 
 .MuiButton-root {
   background-color: #2BC48A !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  font-weight: bold !important;
 }
 
 .MuiButton-root:hover {
   background-color: #0fbd7a !important;
+}
+
+.MuiInputBase-root{
+  background-color: white  !important;
+}
+
+.MuiTableRow-root:hover{
+  background-color: rgb(238, 238, 238);
 }

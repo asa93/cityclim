@@ -19,6 +19,15 @@ export default async (req, res) => {
 
     if (error) return res.status(400).json({ data: null, error: error });
     else res.status(200).json(data);
+  } else if (req.method == "POST") {
+    const { name, address } = req.body;
+
+    const { data, error } = await supabase
+      .from("Accounts")
+      .insert([{ name: name, address: address }])
+      .select();
+
+    res.status(200).json({ error: null });
   } else {
     if (error)
       return res
