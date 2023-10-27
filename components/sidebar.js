@@ -13,6 +13,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import SensorDoorIcon from "@mui/icons-material/SensorDoor";
+import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
+import BookIcon from "@mui/icons-material/Book";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -73,6 +75,28 @@ export default function SideBar({ children, home, title }) {
                 <SensorDoorIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText primary="Locaux" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <Link href={`/units`}>
+            <ListItemButton>
+              <ListItemIcon>
+                <DeviceThermostatIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Machines" />
+            </ListItemButton>
+          </Link>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <Link href={`/references`}>
+            <ListItemButton>
+              <ListItemIcon>
+                <BookIcon fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Références" />
             </ListItemButton>
           </Link>
         </ListItem>

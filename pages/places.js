@@ -18,26 +18,36 @@ import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Add } from "@mui/icons-material";
 
-export default function Component({ allPostsData }) {
-  const [nameFilter, setNameFilter] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newAddress, setNewAddress] = useState("");
-  const [showForm, setShowForm] = useState(false);
+import Autocomplete from "@mui/material/Autocomplete";
 
-  const [{ data: accounts, loading, error }, refetch] = useAxios({
+export default function Component({ allPostsData }) {
+  const [showForm, setShowForm] = useState(true);
+
+  const [newName, setNewName] = useState("");
+  const [newAccountId, setNewAccountId] = useState("");
+
+  const [nameFilter, setNameFilter] = useState("");
+  const [accountFilter, setAccountFilter] = useState("");
+
+  const [{ data: places, loading, error }, refetch] = useAxios({
     url: "/api/places",
     params: { name: nameFilter },
   });
 
-  const handleSave = async (e) => {
-    console.log(newName, newAddress);
+  const [{ data: accounts, loading: loadingAcc, error: errorAcc }] = useAxios({
+    url: "/api/accounts",
+    params: { name: accountFilter },
+  });
 
+  const handleSave = async (e) => {
     if (newName)
-      await axios.post("/api/clients", {
+      await axios.post("/api/places", {
         name: newName,
-        address: newAddress,
+        account: newAccountId,
       });
   };
+
+  console.log("accountFilter", accountFilter);
 
   return (
     <Layout home title={"Locaux"}>
@@ -45,14 +55,26 @@ export default function Component({ allPostsData }) {
         <AddCircleIcon />
       </Button>
 
-      {showForm && (
+      {accounts && showForm && (
         <>
-          <h2>Ajouter client</h2>
+          <h2>Ajouter local</h2>
 
           <TextField label="Nom" onChange={(e) => setNewName(e.target.value)} />
-          <TextField
-            label="Addresse"
-            onChange={(e) => setNewAddress(e.target.value)}
+
+          <Autocomplete
+            disablePortal
+            options={accounts.map((acc) => {
+              return { label: acc.name, id: acc.id };
+            })}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Client" />}
+            onInputChange={(e, newInputValue) => {
+              setAccountFilter(newInputValue);
+            }}
+            onChange={(event, newValue) => {
+              setNewAccountId(newValue ? newValue.id : null);
+            }}
+            filterOptions={(x) => x}
           />
 
           <Button variant="contained" onClick={handleSave}>
@@ -61,7 +83,7 @@ export default function Component({ allPostsData }) {
         </>
       )}
 
-      {accounts && (
+      {places && (
         <TableContainer component={Paper}>
           <Table sx={{}} aria-label="simple table">
             <TableHead>
@@ -73,12 +95,12 @@ export default function Component({ allPostsData }) {
                   />
                 </TableCell>
 
-                <TableCell align="right">Addresse</TableCell>
+                <TableCell align="right">Client</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {accounts.map((acc) => (
+              {places.map((acc) => (
                 <TableRow
                   key={acc.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -86,7 +108,7 @@ export default function Component({ allPostsData }) {
                   <TableCell component="th" scope="row">
                     {acc.name}
                   </TableCell>
-                  <TableCell align="right">{acc.address}</TableCell>
+                  <TableCell align="right">{acc.account}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -11,7 +11,7 @@ export default async (req, res) => {
 
   if (req.method == "GET") {
     let { data, error } = await supabase
-      .from("Accounts")
+      .from("Places")
       .select("*")
       .ilike("name", `%${name}%`)
       .limit(50);
@@ -21,11 +21,11 @@ export default async (req, res) => {
     if (error) return res.status(400).json({ data: null, error: error });
     else res.status(200).json(data);
   } else if (req.method == "POST") {
-    const { name, address } = req.body;
+    const { name, account } = req.body;
 
     const { data, error } = await supabase
-      .from("Accounts")
-      .insert([{ name: name, address: address }])
+      .from("Places")
+      .insert([{ name: name, account: account }])
       .select();
 
     res.status(200).json({ error: null });
