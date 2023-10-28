@@ -92,7 +92,7 @@ export default function Component({ allPostsData }) {
 
                   <TableCell align="right">
                     <TextField
-                      label="Nom"
+                      label="Client"
                       onChange={(e) => setaccountFilter(e.target.value)}
                     />
                   </TableCell>
