@@ -1,7 +1,5 @@
 import Layout from "../components/layout";
 
-import { getSortedPostsData } from "../lib/posts";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -31,7 +29,7 @@ export default function Component() {
   const [accountFilter2, setaccountFilter2] = useState("");
 
   const [{ data: places, loading, error }] = useAxios({
-    url: process.env.NEXT_PUBLIC_APPURL + "/api/places",
+    url: process.env.NEXT_PUBLIC_API + "/api/places",
     params: { name: accountFilter },
   });
 
@@ -134,13 +132,4 @@ export default function Component() {
       )}
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }

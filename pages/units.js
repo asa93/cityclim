@@ -1,7 +1,5 @@
 import Layout from "../components/layout";
 
-import { getSortedPostsData } from "../lib/posts";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -143,13 +141,4 @@ export default function Component() {
       )}
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }

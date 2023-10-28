@@ -1,6 +1,5 @@
 import Layout from "../components/layout";
 import React from "react";
-import { getSortedPostsData } from "../lib/posts";
 import { Grid, Button, TextField } from "@mui/material";
 
 export default function Home() {
@@ -48,13 +47,4 @@ export default function Home() {
       </Grid>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }

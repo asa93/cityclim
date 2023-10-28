@@ -1,5 +1,5 @@
 import Layout from "../components/layout";
-import { getSortedPostsData } from "../lib/posts";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -37,7 +37,6 @@ export default function Clients() {
       });
   };
 
-  console.log("process.env", process.env.NEXT_PUBLIC_FOO);
   return (
     <Layout home title={"Clients"}>
       {loading && <LinearProgress />}
@@ -100,13 +99,4 @@ export default function Clients() {
       )}
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }
