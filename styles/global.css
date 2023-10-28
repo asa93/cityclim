@@ -69,3 +69,11 @@ img {
 .MuiTableRow-root:hover{
   background-color: rgb(238, 238, 238);
 }
+
+thead th.MuiTableCell-root {
+  font-weight: bold;
+}
+
+.MuiToolbar-root {
+  background-color: white;
+}

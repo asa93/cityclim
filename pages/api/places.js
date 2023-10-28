@@ -12,8 +12,8 @@ export default async (req, res) => {
   if (req.method == "GET") {
     let { data, error } = await supabase
       .from("Places")
-      .select("name, Accounts (  name )")
-      .ilike("name", `%${name}%`)
+      .select("name, Accounts!inner (   name )")
+      .ilike("Accounts.name", `%${name}%`)
       .limit(50);
 
     //console.log("data", Accounts, error);
@@ -21,7 +21,12 @@ export default async (req, res) => {
     if (error) return res.status(400).json({ data: null, error: error });
     else {
       data = data.map((r) => {
-        return { name: r.name, account: r.Accounts.name };
+        console.log(r);
+        return {
+          name: r.name,
+          account: r.Accounts.name,
+          account_id: r.Accounts.id,
+        };
       });
       res.status(200).json(data);
     }
