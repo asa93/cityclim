@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
-export const siteTitle = "Next.js Sample Website";
+export const siteTitle = "CityClim App";
 import SideBar from "./sidebar";
 import React from "react";
 import Divider from "@mui/material/Divider";

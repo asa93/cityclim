@@ -86,3 +86,7 @@ thead th.MuiTableCell-root {
 .MuiLinearProgress-colorPrimary{
   background-color: #0fbd7a !important;
 }
+
+.Sidebar .MuiTypography-root {
+  font-weight:bold  !important;
+}

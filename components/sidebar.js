@@ -12,18 +12,23 @@ import AcUnitIcon from "@mui/icons-material/AcUnit";
 import SensorDoorIcon from "@mui/icons-material/SensorDoor";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import BookIcon from "@mui/icons-material/Book";
-
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-
 import Divider from "@mui/material/Divider";
+
+import styles from "./sidebar.module.css";
 
 export default function SideBar() {
   return (
-    <Drawer variant="persistent" anchor={"left"} open={true}>
+    <Drawer
+      className="Sidebar"
+      variant="persistent"
+      anchor={"left"}
+      open={true}
+    >
       <List>
         <ListItem disablePadding>
           <ListItemButton>

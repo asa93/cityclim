@@ -22,7 +22,7 @@ import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
 export default function Component() {
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
   const [newName, setNewName] = useState("");
   const [newAccountId, setNewAccountId] = useState("");
