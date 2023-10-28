@@ -1,10 +1,9 @@
-import Layout, { siteTitle } from "../components/layout";
-
+import Layout from "../components/layout";
+import React from "react";
 import { getSortedPostsData } from "../lib/posts";
-
 import { Grid, Button, TextField } from "@mui/material";
 
-export default function Home({ allPostsData }) {
+export default function Home() {
   return (
     <Layout home title={"CityClim App"}>
       <Grid

@@ -1,4 +1,4 @@
-import Layout, { siteTitle } from "../components/layout";
+import Layout from "../components/layout";
 
 import { getSortedPostsData } from "../lib/posts";
 
@@ -21,7 +21,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import TablePagination from "@mui/material/TablePagination";
 
-export default function Component({ allPostsData }) {
+export default function Component() {
   const [showForm, setShowForm] = useState(true);
 
   const [newName, setNewName] = useState("");
@@ -40,7 +40,7 @@ export default function Component({ allPostsData }) {
     params: { name: accountFilter2 },
   });
 
-  const handleSave = async (e) => {
+  const handleSave = async () => {
     if (newName)
       await axios.post("/api/places", {
         name: newName,

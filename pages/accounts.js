@@ -1,4 +1,4 @@
-import Layout, { siteTitle } from "../components/layout";
+import Layout from "../components/layout";
 
 import { getSortedPostsData } from "../lib/posts";
 
@@ -10,15 +10,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import { Grid, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import axios from "axios";
 import useAxios from "axios-hooks";
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Add } from "@mui/icons-material";
 
-export default function Clients({ allPostsData }) {
+export default function Clients() {
   const [nameFilter, setNameFilter] = useState("");
   const [newName, setNewName] = useState("");
   const [newAddress, setNewAddress] = useState("");
@@ -29,7 +28,7 @@ export default function Clients({ allPostsData }) {
     params: { name: nameFilter },
   });
 
-  const handleSave = async (e) => {
+  const handleSave = async () => {
     console.log(newName, newAddress);
 
     if (newName)
