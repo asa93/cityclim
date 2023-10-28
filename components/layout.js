@@ -6,7 +6,7 @@ import SideBar from "./sidebar";
 import React from "react";
 import Divider from "@mui/material/Divider";
 
-export default function Layout({ children, home, title }) {
+export default function Layout({ children, title }) {
   return (
     <div className={styles.container}>
       <Head>

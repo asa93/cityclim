@@ -30,12 +30,12 @@ export default function Component() {
   const [accountFilter, setaccountFilter] = useState("");
   const [accountFilter2, setaccountFilter2] = useState("");
 
-  const [{ data: places, loading, error }, refetch] = useAxios({
+  const [{ data: places, loading, error }] = useAxios({
     url: "/api/places",
     params: { name: accountFilter },
   });
 
-  const [{ data: accounts, loading: loadingAcc, error: errorAcc }] = useAxios({
+  const [{ data: accounts, loading: loadingAcc }] = useAxios({
     url: "/api/accounts",
     params: { name: accountFilter2 },
   });
@@ -50,7 +50,8 @@ export default function Component() {
 
   return (
     <Layout home title={"Locaux"}>
-      {loading && <LinearProgress />}
+      {(loadingAcc || loading) && <LinearProgress />}
+
       {error && <Alert severity="error">{error.message}</Alert>}
 
       <Button variant="contained" onClick={() => setShowForm(!showForm)}>

@@ -32,12 +32,12 @@ export default function Component() {
 
   const [accountFilter2, setaccountFilter2] = useState("");
 
-  const [{ data: units, loading, error }, refetch] = useAxios({
+  const [{ data: units, loading, error }] = useAxios({
     url: "/api/units",
     params: { account: accountFilter, place: placeFilter },
   });
 
-  const [{ data: accounts, loading: loadingAcc, error: errorAcc }] = useAxios({
+  const [{ data: accounts }] = useAxios({
     url: "/api/accounts",
     params: { name: accountFilter2 },
   });

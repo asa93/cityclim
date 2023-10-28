@@ -22,7 +22,7 @@ export default function Clients() {
   const [newAddress, setNewAddress] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  const [{ data: accounts, loading, error }, refetch] = useAxios({
+  const [{ data: accounts, loading, error }] = useAxios({
     url: "/api/accounts",
     params: { name: nameFilter },
   });
