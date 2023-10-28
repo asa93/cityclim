@@ -82,3 +82,7 @@ thead th.MuiTableCell-root {
   background-color:#ededed !important;
   opacity: 0.2;
 }
+
+.MuiLinearProgress-colorPrimary{
+  background-color: #0fbd7a !important;
+}

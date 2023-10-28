@@ -4,6 +4,7 @@ import utilStyles from "../styles/utils.module.css";
 export const siteTitle = "Next.js Sample Website";
 import SideBar from "./sidebar";
 import React from "react";
+import Divider from "@mui/material/Divider";
 
 export default function Layout({ children, home, title }) {
   return (
@@ -26,6 +27,7 @@ export default function Layout({ children, home, title }) {
       </header>
       <main>
         <SideBar />
+        <Divider />
         {children}
       </main>
     </div>

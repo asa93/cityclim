@@ -28,9 +28,12 @@ export default function SideBar() {
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <AcUnitIcon fontSize="large" />
+              <AcUnitIcon
+                sx={{ backgroundColor: "#2BC48A" }}
+                fontSize="large"
+              />
             </ListItemIcon>
-            <ListItemText primary="CityClim" />
+            <ListItemText sx={{ color: "#2BC48A" }} primary="CityClim" />
           </ListItemButton>
         </ListItem>
 

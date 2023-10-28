@@ -5,7 +5,7 @@ import { Grid, Button, TextField } from "@mui/material";
 
 export default function Home() {
   return (
-    <Layout home title={"CityClim App"}>
+    <Layout home title={""}>
       <Grid
         container
         spacing={0}
