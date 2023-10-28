@@ -23,7 +23,7 @@ export default function Clients() {
   const [showForm, setShowForm] = useState(false);
 
   const [{ data: accounts, loading, error }] = useAxios({
-    url: "/api/accounts",
+    url: process.env.NEXT_PUBLIC_API + "/api/accounts",
     params: { name: nameFilter },
   });
 
@@ -31,7 +31,7 @@ export default function Clients() {
     console.log(newName, newAddress);
 
     if (newName)
-      await axios.post("/api/accounts", {
+      await axios.post(process.env.NEXT_PUBLIC_API + "/api/accounts", {
         name: newName,
         address: newAddress,
       });

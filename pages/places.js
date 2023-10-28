@@ -31,18 +31,18 @@ export default function Component() {
   const [accountFilter2, setaccountFilter2] = useState("");
 
   const [{ data: places, loading, error }] = useAxios({
-    url: "/api/places",
+    url: process.env.NEXT_PUBLIC_APPURL + "/api/places",
     params: { name: accountFilter },
   });
 
   const [{ data: accounts, loading: loadingAcc }] = useAxios({
-    url: "/api/accounts",
+    url: process.env.NEXT_PUBLIC_API + "/api/accounts",
     params: { name: accountFilter2 },
   });
 
   const handleSave = async () => {
     if (newName)
-      await axios.post("/api/places", {
+      await axios.post(process.env.NEXT_PUBLIC_API + "/api/places", {
         name: newName,
         account: newAccountId,
       });
