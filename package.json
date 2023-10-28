@@ -25,6 +25,8 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
     "typescript": "5.2.2"
   }
 }
