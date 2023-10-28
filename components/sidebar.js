@@ -1,5 +1,3 @@
-import styles from "./layout.module.css";
-
 import Link from "next/link";
 
 import Drawer from "@mui/material/Drawer";
@@ -8,7 +6,6 @@ import React, { useState } from "react";
 
 import BuildIcon from "@mui/icons-material/Build";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
@@ -22,7 +19,9 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-export default function SideBar({ children, home, title }) {
+import Divider from "@mui/material/Divider";
+
+export default function SideBar() {
   return (
     <Drawer variant="persistent" anchor={"left"} open={true}>
       <List>
@@ -34,6 +33,8 @@ export default function SideBar({ children, home, title }) {
             <ListItemText primary="CityClim" />
           </ListItemButton>
         </ListItem>
+
+        <Divider />
 
         <ListItem disablePadding>
           <Link href={`/`}>
