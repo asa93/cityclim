@@ -13,6 +13,8 @@ import useAxios from "axios-hooks";
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LinearProgress from "@mui/material/LinearProgress";
+import Alert from "@mui/material/Alert";
+
 export default function Clients() {
   const [nameFilter, setNameFilter] = useState("");
   const [newName, setNewName] = useState("");
@@ -37,6 +39,7 @@ export default function Clients() {
   return (
     <Layout home title={"Clients"}>
       {loading && <LinearProgress />}
+      {error && <Alert severity="error">{error.message}</Alert>}
 
       <Button variant="contained" onClick={() => setShowForm(!showForm)}>
         <AddCircleIcon />

@@ -18,6 +18,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TablePagination from "@mui/material/TablePagination";
 
 import LinearProgress from "@mui/material/LinearProgress";
+import Alert from "@mui/material/Alert";
 
 export default function Component() {
   const [showForm, setShowForm] = useState(true);
@@ -49,6 +50,7 @@ export default function Component() {
   return (
     <Layout home title={"Locaux"}>
       {loading && <LinearProgress />}
+      {error && <Alert severity="error">{error.message}</Alert>}
 
       <Button variant="contained" onClick={() => setShowForm(!showForm)}>
         <AddCircleIcon />
