@@ -1,7 +1,5 @@
 import Layout from "../components/layout";
-
 import { getSortedPostsData } from "../lib/posts";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,14 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import { Button, TextField } from "@mui/material";
-
 import axios from "axios";
 import useAxios from "axios-hooks";
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import LinearProgress from "@mui/material/LinearProgress";
 export default function Clients() {
   const [nameFilter, setNameFilter] = useState("");
   const [newName, setNewName] = useState("");
@@ -40,6 +36,8 @@ export default function Clients() {
 
   return (
     <Layout home title={"Clients"}>
+      {loading && <LinearProgress />}
+
       <Button variant="contained" onClick={() => setShowForm(!showForm)}>
         <AddCircleIcon />
       </Button>

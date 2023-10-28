@@ -9,17 +9,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import { Button, TextField } from "@mui/material";
-
 import axios from "axios";
 import useAxios from "axios-hooks";
 import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import Autocomplete from "@mui/material/Autocomplete";
-
 import TablePagination from "@mui/material/TablePagination";
+
+import LinearProgress from "@mui/material/LinearProgress";
 
 export default function Component() {
   const [showForm, setShowForm] = useState(true);
@@ -50,6 +48,8 @@ export default function Component() {
 
   return (
     <Layout home title={"Locaux"}>
+      {loading && <LinearProgress />}
+
       <Button variant="contained" onClick={() => setShowForm(!showForm)}>
         <AddCircleIcon />
       </Button>
