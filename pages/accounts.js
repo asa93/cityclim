@@ -37,6 +37,7 @@ export default function Clients() {
       });
   };
 
+  console.log("process.env", process.env.NEXT_PUBLIC_FOO);
   return (
     <Layout home title={"Clients"}>
       {loading && <LinearProgress />}

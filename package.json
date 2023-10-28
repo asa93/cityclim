@@ -3,7 +3,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -25,6 +26,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^14.0.0",
     "eslint": "^8.52.0",
     "eslint-plugin-react": "^7.33.2",
     "typescript": "5.2.2"
