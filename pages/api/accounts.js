@@ -23,16 +23,13 @@ export default async (req, res) => {
   } else if (req.method == "POST") {
     const { name, address } = req.body;
 
-    const { data, error } = await supabase
+    await supabase
       .from("Accounts")
       .insert([{ name: name, address: address }])
       .select();
 
     res.status(200).json({ error: null });
   } else {
-    if (error)
-      return res
-        .status(400)
-        .json({ data: null, error: "method not authorized" });
+    return res.status(400).json({ data: null, error: "method not authorized" });
   }
 };

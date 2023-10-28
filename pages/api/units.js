@@ -33,16 +33,13 @@ export default async (req, res) => {
     //todo
     const { name, account } = req.body;
 
-    const { data, error } = await supabase
+    await supabase
       .from("Units")
       .insert([{ name: name, account: account }])
       .select();
 
     res.status(200).json({ error: null });
   } else {
-    if (error)
-      return res
-        .status(400)
-        .json({ data: null, error: "method not authorized" });
+    return res.status(400).json({ data: null, error: "method not authorized" });
   }
 };
