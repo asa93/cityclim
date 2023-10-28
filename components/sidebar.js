@@ -19,8 +19,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
-import styles from "./sidebar.module.css";
-
 export default function SideBar() {
   return (
     <Drawer
