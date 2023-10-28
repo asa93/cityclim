@@ -77,3 +77,8 @@ thead th.MuiTableCell-root {
 .MuiToolbar-root {
   background-color: white;
 }
+
+.MuiDivider-root{
+  background-color:#ededed !important;
+  opacity: 0.2;
+}

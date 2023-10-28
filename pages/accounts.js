@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
+import Divider from "@mui/material/Divider";
 
 export default function Clients() {
   const [nameFilter, setNameFilter] = useState("");
@@ -58,6 +59,9 @@ export default function Clients() {
           <Button variant="contained" onClick={handleSave}>
             Enregistrer
           </Button>
+
+          <Divider />
+          <br />
         </>
       )}
 

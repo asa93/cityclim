@@ -19,6 +19,7 @@ import TablePagination from "@mui/material/TablePagination";
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
+import Divider from "@mui/material/Divider";
 
 export default function Component() {
   const [showForm, setShowForm] = useState(true);
@@ -81,6 +82,9 @@ export default function Component() {
           <Button variant="contained" onClick={handleSave}>
             Enregistrer
           </Button>
+
+          <Divider />
+          <br />
         </>
       )}
 
