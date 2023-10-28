@@ -12,14 +12,19 @@ export default async (req, res) => {
   if (req.method == "GET") {
     let { data, error } = await supabase
       .from("Places")
-      .select("*")
+      .select("name, Accounts (  name )")
       .ilike("name", `%${name}%`)
       .limit(50);
 
     //console.log("data", Accounts, error);
 
     if (error) return res.status(400).json({ data: null, error: error });
-    else res.status(200).json(data);
+    else {
+      data = data.map((r) => {
+        return { name: r.name, account: r.Accounts.name };
+      });
+      res.status(200).json(data);
+    }
   } else if (req.method == "POST") {
     const { name, account } = req.body;
 
