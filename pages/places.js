@@ -115,9 +115,9 @@ export default function Component({ allPostsData }) {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[50]}
             component="div"
-            count={50}
+            count={places.length}
             rowsPerPage={50}
             page={0}
             onPageChange={() => {}}
