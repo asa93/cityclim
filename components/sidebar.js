@@ -19,7 +19,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
+import { useSession } from "../hooks/useSession";
+
+import { ROLES } from "../consts";
+
 export default function SideBar() {
+  const { loggedIn, email, role } = useSession();
+
+  console.log("session", email, role);
+
+  if (!loggedIn) return null;
+
   return (
     <Drawer
       className="Sidebar"
@@ -52,62 +62,61 @@ export default function SideBar() {
             </ListItemButton>
           </Link>
         </ListItem>
+        {role === ROLES.ADMIN && (
+          <ListItem disablePadding>
+            <Link href={`/`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ReceiptIcon fontSize="large" />
+                </ListItemIcon>
+                <ListItemText primary="Devis" />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        )}
 
-        <ListItem disablePadding>
-          <Link href={`/`}>
-            <ListItemButton>
-              <ListItemIcon>
-                <ReceiptIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Devis" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <Link href={`/accounts`}>
-            <ListItemButton>
-              <ListItemIcon>
-                <AccountBalanceIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Clients" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <Link href={`/places`}>
-            <ListItemButton>
-              <ListItemIcon>
-                <SensorDoorIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Locaux" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <Link href={`/units`}>
-            <ListItemButton>
-              <ListItemIcon>
-                <DeviceThermostatIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Machines" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <Link href={`/references`}>
-            <ListItemButton>
-              <ListItemIcon>
-                <BookIcon fontSize="large" />
-              </ListItemIcon>
-              <ListItemText primary="Références" />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-
+        {(role == ROLES.ADMIN || role === ROLES.TECHNICIEN) && [
+          <ListItem disablePadding key={1}>
+            <Link href={`/accounts`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AccountBalanceIcon fontSize="large" />
+                </ListItemIcon>
+                <ListItemText primary="Clients" />
+              </ListItemButton>
+            </Link>
+          </ListItem>,
+          <ListItem disablePadding key={2}>
+            <Link href={`/places`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SensorDoorIcon fontSize="large" />
+                </ListItemIcon>
+                <ListItemText primary="Locaux" />
+              </ListItemButton>
+            </Link>
+          </ListItem>,
+          <ListItem disablePadding key={3}>
+            <Link href={`/units`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DeviceThermostatIcon fontSize="large" />
+                </ListItemIcon>
+                <ListItemText primary="Machines" />
+              </ListItemButton>
+            </Link>
+          </ListItem>,
+          <ListItem disablePadding key={4}>
+            <Link href={`/references`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <BookIcon fontSize="large" />
+                </ListItemIcon>
+                <ListItemText primary="Références" />
+              </ListItemButton>
+            </Link>
+          </ListItem>,
+        ]}
         <ListItem disablePadding>
           <Link href={`/connexion`}>
             <ListItemButton>
