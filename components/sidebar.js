@@ -115,7 +115,7 @@ export default function SideBar() {
           </ListItem>,
         ]}
         <ListItem disablePadding>
-          <Link href={`/connexion`}>
+          <Link href={`/`}>
             <ListItemButton>
               <ListItemIcon>
                 <AccountCircleIcon fontSize="large" />
