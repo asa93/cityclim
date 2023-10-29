@@ -19,7 +19,11 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
+import { useSession } from "../hooks/useSession";
+
 export default function Component() {
+  const { loggedIn } = useSession();
+
   const [showForm, setShowForm] = useState(false);
 
   const [newName, setNewName] = useState("");
@@ -45,6 +49,8 @@ export default function Component() {
         account: newAccountId,
       });
   };
+
+  if (!loggedIn) return null;
 
   return (
     <Layout home title={"Locaux"}>

@@ -1,47 +1,95 @@
-import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
-import React from "react";
+import Layout from "../components/layout";
+import React, { useState } from "react";
+import { Grid, Button, TextField } from "@mui/material";
+import axios from "axios";
+import { useSession } from "../hooks/useSession";
 
-export default function Home({ allPostsData }) {
+export default function Home() {
+  const { loggedIn, email: email2, role } = useSession();
+
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+
+  const login = async () => {
+    try {
+      await axios.post(process.env.NEXT_PUBLIC_API + "/api/auth", {
+        email: email,
+        password: pwd,
+      });
+
+      window.location.reload();
+    } catch (e) {
+      console.log("error", e.toString());
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await axios.post(process.env.NEXT_PUBLIC_API + "/api/logout", {});
+
+      //window.location.reload();
+    } catch (e) {
+      console.log("error", e.toString());
+    }
+  };
+
   return (
-    <Layout home>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <section className={utilStyles.headingMd}>
-        <p>[Your Self Introduction]</p>
-        <p>
-          (This is a sample website - you’ll be building a site like this in{" "}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-        </p>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>{title}</Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
+    <Layout home title={""}>
+      {!loggedIn && (
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid md={8}>
+            <TextField
+              id="outlined-basic"
+              label="Email"
+              xs={4}
+              className="textfield"
+              InputProps={{
+                className: "textfield",
+              }}
+              sx={{
+                input: {
+                  color: "black",
+                  background: "white",
+                },
+              }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Grid>
+
+          <Grid md={8}>
+            <TextField
+              id="outlined-basic"
+              label="Mot de passe"
+              type="password"
+              sx={{
+                input: {
+                  color: "black",
+                  background: "white",
+                },
+              }}
+              onChange={(e) => setPwd(e.target.value)}
+            />
+          </Grid>
+
+          <Button variant="contained" onClick={login}>
+            Connexion
+          </Button>
+        </Grid>
+      )}
+      {loggedIn && (
+        <div>
+          {email2} | {role}{" "}
+          <Button variant="contained" onClick={logout}>
+            Déconnexion
+          </Button>
+        </div>
+      )}
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }

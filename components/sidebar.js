@@ -20,13 +20,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
 import { useSession } from "../hooks/useSession";
-
 import { ROLES } from "../consts";
 
 export default function SideBar() {
-  const { loggedIn, email, role } = useSession();
-
-  console.log("session", email, role);
+  const { loggedIn, role } = useSession();
 
   if (!loggedIn) return null;
 

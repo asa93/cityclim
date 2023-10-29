@@ -16,7 +16,11 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
+import { useSession } from "../hooks/useSession";
+
 export default function Clients() {
+  const { loggedIn } = useSession();
+
   const [nameFilter, setNameFilter] = useState("");
   const [newName, setNewName] = useState("");
   const [newAddress, setNewAddress] = useState("");
@@ -36,6 +40,8 @@ export default function Clients() {
         address: newAddress,
       });
   };
+
+  if (!loggedIn) return null;
 
   return (
     <Layout home title={"Clients"}>
