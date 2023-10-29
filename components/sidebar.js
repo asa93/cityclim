@@ -120,7 +120,7 @@ export default function SideBar() {
               <ListItemIcon>
                 <AccountCircleIcon fontSize="large" />
               </ListItemIcon>
-              <ListItemText primary="User" />
+              <ListItemText primary={role} />
             </ListItemButton>
           </Link>
         </ListItem>
