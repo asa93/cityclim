@@ -2,10 +2,13 @@ import Layout from "../components/layout";
 import React, { useState } from "react";
 import { Grid, Button, TextField } from "@mui/material";
 import axios from "axios";
-import { useSession } from "../hooks/useSession";
+
+import { userState } from "../context/user";
+import { useHookstate } from "@hookstate/core";
 
 export default function Home() {
-  const { loggedIn, email: email2, role } = useSession();
+  const userState_ = useHookstate(userState);
+  const { loggedIn, email: email2, role } = userState_.get();
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
@@ -26,6 +29,8 @@ export default function Home() {
   const logout = async () => {
     try {
       await axios.post(process.env.NEXT_PUBLIC_API + "/api/logout", {});
+
+      userState_.set({ loggedIn: false, email: null, role: null });
 
       window.location.reload();
     } catch (e) {

@@ -19,12 +19,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 
-import { useSession } from "../hooks/useSession";
+import { userState } from "../context/user";
+import { useHookstate } from "@hookstate/core";
 import { ROLES } from "../consts";
 
 export default function SideBar() {
-  const { loggedIn, role } = useSession();
-
+  const userState_ = useHookstate(userState);
+  const { loggedIn, role } = userState_.get();
   if (!loggedIn) return null;
 
   return (

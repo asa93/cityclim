@@ -9,6 +9,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookstate/core": "^4.0.1",
     "@mui/icons-material": "^5.14.15",
     "@mui/material": "^5.14.15",
     "@supabase/supabase-js": "^2.38.4",

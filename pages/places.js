@@ -19,10 +19,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
-import { useSession } from "../hooks/useSession";
+import { userState } from "../context/user";
+import { useHookstate } from "@hookstate/core";
 
 export default function Component() {
-  const { loggedIn } = useSession();
+  const userState_ = useHookstate(userState);
+  const { loggedIn } = userState_.get();
 
   const [showForm, setShowForm] = useState(false);
 
