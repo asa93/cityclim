@@ -76,8 +76,8 @@ export default function Component() {
             onInputChange={(e, newInputValue) => {
               setaccountFilter2(newInputValue);
             }}
-            onChange={(event, newValue: any) => {
-              setNewAccountId(newValue ? newValue.id : null);
+            onChange={(event, newValue: Account) => {
+              setNewAccountId(newValue ? newValue.id.toString() : null);
             }}
             filterOptions={(x) => x}
           />
