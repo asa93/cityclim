@@ -27,7 +27,7 @@ export default function Home() {
     try {
       await axios.post(process.env.NEXT_PUBLIC_API + "/api/logout", {});
 
-      //window.location.reload();
+      window.location.reload();
     } catch (e) {
       console.log("error", e.toString());
     }

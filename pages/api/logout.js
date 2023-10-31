@@ -1,8 +1,10 @@
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookies } from "cookies-next";
 
 export default async (req, res) => {
   if (req.method == "POST") {
-    deleteCookie("session");
+    console.log(getCookies({ req, res }));
+    deleteCookie("session", { req, res });
+    console.log(getCookies({ req, res }));
 
     return res.status(200).json({ data: "", error: null });
   } else {
