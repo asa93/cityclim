@@ -31,8 +31,10 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
     "eslint": "^8.52.0",
     "eslint-plugin-react": "^7.33.2",
-    "typescript": "5.2.2"
+    "typescript": "^5.2.2"
   }
 }

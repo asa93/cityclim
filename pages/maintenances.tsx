@@ -40,7 +40,7 @@ export default function Component() {
   //if (!loggedIn) return null;
 
   return (
-    <Layout home title={"Maintenance"}>
+    <Layout title={"Maintenance"}>
       {loading && <LinearProgress />}
 
       {error && <Alert severity="error">{error.message}</Alert>}
