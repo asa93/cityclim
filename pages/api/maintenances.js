@@ -7,19 +7,24 @@ const supabase = createClient(
 );
 
 export default async (req, res) => {
-  const { account, place } = req.query;
+  const { account, place, id } = req.query;
 
   if (req.method == "GET") {
-    let { data, error } = await supabase
+    let query = supabase
       .from("Maintenances")
       .select(
         "* , Units!inner( id, Places!inner (name, Accounts!inner(name) ) )"
       )
       .ilike("Units.Places.name", `%${place}%`)
       .ilike("Units.Places.Accounts.name", `%${account}%`)
+
       .limit(100);
 
-    //console.log("data", Accounts, error);
+    if (id) {
+      query = query.eq("id", id);
+    }
+
+    let { data, error } = await query;
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {

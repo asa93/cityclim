@@ -22,14 +22,19 @@ import { MAINTENANCE_STATE } from "../consts";
 import Chip from "@mui/material/Chip";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 
+import { Maintenance } from "../types/types";
+
+import Link from "next/link";
+
 export default function Component() {
   const [accountFilter, setAccountFilter] = useState("");
   const [placeFilter, setPlaceFilter] = useState("");
 
-  const [{ data: places, loading, error }] = useAxios({
+  const [{ data: maintenances_, loading, error }] = useAxios({
     url: process.env.NEXT_PUBLIC_API + "/api/maintenances",
     params: { account: accountFilter, place: placeFilter },
   });
+  const maintenances: Maintenance[] = maintenances_;
 
   return (
     <Layout title={"Maintenance"}>
@@ -37,7 +42,7 @@ export default function Component() {
 
       {error && <Alert severity="error">{error.message}</Alert>}
 
-      {places && (
+      {maintenances && (
         <>
           <TableContainer component={Paper}>
             <Table sx={{}} aria-label="simple table">
@@ -65,29 +70,33 @@ export default function Component() {
               </TableHead>
 
               <TableBody>
-                {places.map((r) => (
+                {maintenances.map((r) => (
                   <TableRow
-                    key={r.name}
+                    key={r.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="right">{r.account}</TableCell>
-                    <TableCell align="right">{r.place}</TableCell>
-                    <TableCell align="right">{r.unit}</TableCell>
-                    <TableCell align="left">
-                      {" "}
-                      <Chip
-                        label={r.state}
-                        color={
-                          r.state === MAINTENANCE_STATE.FAIT
-                            ? "success"
-                            : "warning"
-                        }
-                      />{" "}
-                    </TableCell>
-                    <TableCell align="left">
-                      {r.problem && <ReportProblemIcon color="error" />}
-                    </TableCell>
-                    <TableCell align="left">{formatDate(r.done_at)}</TableCell>
+                    <Link href={`/maintenances/${r.id}`}>
+                      <TableCell align="right">{r.account}</TableCell>
+                      <TableCell align="right">{r.place}</TableCell>
+                      <TableCell align="right">{r.unit}</TableCell>
+                      <TableCell align="left">
+                        {" "}
+                        <Chip
+                          label={r.state}
+                          color={
+                            r.state === MAINTENANCE_STATE.FAIT
+                              ? "success"
+                              : "warning"
+                          }
+                        />{" "}
+                      </TableCell>
+                      <TableCell align="left">
+                        {r.problem && <ReportProblemIcon color="error" />}
+                      </TableCell>
+                      <TableCell align="left">
+                        {formatDate(r.done_at)}
+                      </TableCell>
+                    </Link>
                   </TableRow>
                 ))}
               </TableBody>
@@ -96,7 +105,7 @@ export default function Component() {
           <TablePagination
             rowsPerPageOptions={[50]}
             component="div"
-            count={places.length}
+            count={maintenances.length}
             rowsPerPage={50}
             page={0}
             onPageChange={() => {}}
