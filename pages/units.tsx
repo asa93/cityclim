@@ -19,7 +19,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
-import { Unit, Account } from "../types/types";
+import { Unit } from "../types/types";
 
 export default function Component() {
   const [showForm, setShowForm] = useState(false);
@@ -76,8 +76,8 @@ export default function Component() {
             onInputChange={(e, newInputValue) => {
               setaccountFilter2(newInputValue);
             }}
-            onChange={(event, newValue: Account) => {
-              setNewAccountId(newValue ? newValue.id.toString() : null);
+            onChange={(event, newValue: any) => {
+              setNewAccountId(newValue ? newValue.id : null);
             }}
             filterOptions={(x) => x}
           />
