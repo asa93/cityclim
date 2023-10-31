@@ -19,6 +19,8 @@ import Divider from "@mui/material/Divider";
 import { userState } from "../context/user";
 import { useHookstate } from "@hookstate/core";
 
+import { Account } from "../types/types";
+
 export default function Clients() {
   const userState_ = useHookstate(userState);
   const { loggedIn } = userState_.get();
@@ -28,10 +30,12 @@ export default function Clients() {
   const [newAddress, setNewAddress] = useState("");
   const [showForm, setShowForm] = useState(false);
 
-  const [{ data: accounts, loading, error }] = useAxios({
+  const [{ data, loading, error }] = useAxios({
     url: process.env.NEXT_PUBLIC_API + "/api/accounts",
     params: { name: nameFilter },
   });
+
+  const accounts: Account[] = data;
 
   const handleSave = async () => {
     console.log(newName, newAddress);
@@ -46,7 +50,7 @@ export default function Clients() {
   if (!loggedIn) return null;
 
   return (
-    <Layout home title={"Clients"}>
+    <Layout title={"Clients"}>
       {loading && <LinearProgress />}
       {error && <Alert severity="error">{error.message}</Alert>}
 

@@ -22,6 +22,8 @@ import Divider from "@mui/material/Divider";
 import { userState } from "../context/user";
 import { useHookstate } from "@hookstate/core";
 
+import { Account, Place } from "../types/types";
+
 export default function Component() {
   const userState_ = useHookstate(userState);
   const { loggedIn } = userState_.get();
@@ -34,15 +36,17 @@ export default function Component() {
   const [accountFilter, setaccountFilter] = useState("");
   const [accountFilter2, setaccountFilter2] = useState("");
 
-  const [{ data: places, loading, error }] = useAxios({
+  const [{ data: places_, loading, error }] = useAxios({
     url: process.env.NEXT_PUBLIC_API + "/api/places",
     params: { name: accountFilter },
   });
+  const places: Place[] = places_;
 
-  const [{ data: accounts, loading: loadingAcc }] = useAxios({
+  const [{ data: accounts_, loading: loadingAcc }] = useAxios({
     url: process.env.NEXT_PUBLIC_API + "/api/accounts",
     params: { name: accountFilter2 },
   });
+  const accounts: Account[] = accounts_;
 
   const handleSave = async () => {
     if (newName)
@@ -55,7 +59,7 @@ export default function Component() {
   if (!loggedIn) return null;
 
   return (
-    <Layout home title={"Locaux"}>
+    <Layout title={"Locaux"}>
       {(loadingAcc || loading) && <LinearProgress />}
 
       {error && <Alert severity="error">{error.message}</Alert>}
@@ -80,7 +84,7 @@ export default function Component() {
             onInputChange={(e, newInputValue) => {
               setaccountFilter2(newInputValue);
             }}
-            onChange={(event, newValue) => {
+            onChange={(event, newValue: any) => {
               setNewAccountId(newValue ? newValue.id : null);
             }}
             filterOptions={(x) => x}
@@ -113,15 +117,16 @@ export default function Component() {
               </TableHead>
 
               <TableBody>
-                {places.map((acc) => (
+                {places.map((r) => (
                   <TableRow
-                    key={acc.name}
+                    key={r.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {acc.name}
+                      {r.name}
                     </TableCell>
-                    <TableCell align="right">{acc.account}</TableCell>
+
+                    <TableCell align="right">{r.account}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
