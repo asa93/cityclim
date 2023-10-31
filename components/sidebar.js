@@ -51,7 +51,7 @@ export default function SideBar() {
         <Divider />
 
         <ListItem disablePadding>
-          <Link href={`/`}>
+          <Link href={`/maintenances`}>
             <ListItemButton>
               <ListItemIcon>
                 <BuildIcon fontSize="large" />
@@ -62,7 +62,7 @@ export default function SideBar() {
         </ListItem>
         {role === ROLES.ADMIN && (
           <ListItem disablePadding>
-            <Link href={`/`}>
+            <Link href={`/estimates`}>
               <ListItemButton>
                 <ListItemIcon>
                   <ReceiptIcon fontSize="large" />
