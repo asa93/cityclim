@@ -16,8 +16,6 @@ export default async (req, res) => {
       .ilike("name", `%${name}%`)
       .limit(50);
 
-    //console.log("data", Accounts, error);
-
     if (error) return res.status(400).json({ data: null, error: error });
     else res.status(200).json(data);
   } else if (req.method == "POST") {

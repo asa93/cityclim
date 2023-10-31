@@ -22,13 +22,7 @@ import { MAINTENANCE_STATE } from "../consts";
 import Chip from "@mui/material/Chip";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 
-// import { userState } from "../context/user";
-// import { useHookstate } from "@hookstate/core";
-
 export default function Component() {
-  //const userState_ = useHookstate(userState);
-  //const { loggedIn } = userState_.get();
-
   const [accountFilter, setAccountFilter] = useState("");
   const [placeFilter, setPlaceFilter] = useState("");
 
@@ -36,8 +30,6 @@ export default function Component() {
     url: process.env.NEXT_PUBLIC_API + "/api/maintenances",
     params: { account: accountFilter, place: placeFilter },
   });
-
-  //if (!loggedIn) return null;
 
   return (
     <Layout title={"Maintenance"}>

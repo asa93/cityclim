@@ -19,15 +19,9 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
-import { userState } from "../context/user";
-import { useHookstate } from "@hookstate/core";
-
 import { Account, Place, Unit } from "../types/types";
 
 export default function Component() {
-  const userState_ = useHookstate(userState);
-  const { loggedIn } = userState_.get();
-
   const [showForm, setShowForm] = useState(false);
 
   const [newName, setNewName] = useState("");
@@ -56,8 +50,6 @@ export default function Component() {
         account: newAccountId,
       });
   };
-
-  if (!loggedIn) return null;
 
   return (
     <Layout title={"Machines"}>

@@ -6,7 +6,16 @@ import SideBar from "./sidebar";
 import React from "react";
 import Divider from "@mui/material/Divider";
 
+import { userState } from "../context/user";
+import { useHookstate } from "@hookstate/core";
+import { useRouter } from "next/router";
+
 export default function Layout({ children, title }) {
+  const userState_ = useHookstate(userState);
+  const { loggedIn } = userState_.get();
+
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -28,7 +37,7 @@ export default function Layout({ children, title }) {
       <main>
         <SideBar />
         <Divider />
-        {children}
+        {router.route !== "/" && !loggedIn ? null : children}
       </main>
     </div>
   );
