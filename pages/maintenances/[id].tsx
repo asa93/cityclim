@@ -35,6 +35,7 @@ export default function Component() {
   const [problem, setProblem] = useState(false);
   const [observations, setObservations] = useState("");
 
+  const [saving, setSaving] = useState(false);
   useEffect(() => {
     setState(maintenance ? maintenance.state : "A FAIRE");
     setObservations(maintenance ? maintenance.observations : "");
@@ -42,12 +43,14 @@ export default function Component() {
   }, [maintenance]);
 
   const handleSave = async () => {
+    setSaving(true);
     await axios.post(process.env.NEXT_PUBLIC_API + "/api/maintenances", {
       id,
       state,
       problem,
       observations,
     });
+    setSaving(false);
   };
 
   if (!id) return null;
@@ -56,7 +59,8 @@ export default function Component() {
 
   return (
     <Layout title={"Maintenance #" + id}>
-      {loading && <LinearProgress />}
+      {(loading || saving) && <LinearProgress />}
+
       {error && <Alert severity="error">{error.message}</Alert>}
 
       {maintenance && (
