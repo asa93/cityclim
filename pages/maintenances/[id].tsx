@@ -51,7 +51,6 @@ export default function Component() {
   };
 
   if (!id) return null;
-  if (!data) return null;
 
   console.log("state", state);
 
@@ -60,93 +59,96 @@ export default function Component() {
       {loading && <LinearProgress />}
       {error && <Alert severity="error">{error.message}</Alert>}
 
-      <Grid container spacing={0} className="maintenance-table">
-        <Grid md={3} xs={6} className="head">
-          Client{" "}
-        </Grid>
-        <Grid md={2} xs={6} className="head">
-          Local{" "}
-        </Grid>
-        <Grid md={2} xs={6} className="head">
-          Machine{" "}
-        </Grid>
+      {maintenance && (
+        <Grid container spacing={0} className="maintenance-table">
+          <Grid md={3} xs={6} className="head">
+            Client{" "}
+          </Grid>
+          <Grid md={2} xs={6} className="head">
+            Local{" "}
+          </Grid>
+          <Grid md={2} xs={6} className="head">
+            Machine{" "}
+          </Grid>
 
-        <Grid md={3} xs={6} className="head">
-          Fait le{" "}
-        </Grid>
+          <Grid md={3} xs={6} className="head">
+            Fait le{" "}
+          </Grid>
 
-        <Grid md={3} xs={6}>
-          {maintenance.account}{" "}
-        </Grid>
-        <Grid md={2} xs={6}>
-          {maintenance.place}{" "}
-        </Grid>
-        <Grid md={2} xs={6}>
-          {maintenance.unit}{" "}
-        </Grid>
-        <Grid md={3} xs={6}>
-          {formatDate(maintenance.done_at)}{" "}
-        </Grid>
+          <Grid md={3} xs={6}>
+            {maintenance.account}{" "}
+          </Grid>
+          <Grid md={2} xs={6}>
+            {maintenance.place}{" "}
+          </Grid>
+          <Grid md={2} xs={6}>
+            {maintenance.unit}{" "}
+          </Grid>
+          <Grid md={3} xs={6}>
+            {formatDate(maintenance.done_at)}{" "}
+          </Grid>
 
-        <Grid md={12} xs={12}>
-          {" "}
-          <Divider />{" "}
-        </Grid>
+          <Grid md={12} xs={12}>
+            {" "}
+            <Divider />{" "}
+          </Grid>
 
-        <Grid md={4} xs={6} className="head">
-          Etat
-        </Grid>
-        <Grid md={4} xs={6} className="head">
-          Devis
-        </Grid>
-        <Grid md={4} xs={6} className="head">
-          Problème identifié
-        </Grid>
+          <Grid md={4} xs={6} className="head">
+            Etat
+          </Grid>
+          <Grid md={4} xs={6} className="head">
+            Devis
+          </Grid>
+          <Grid md={4} xs={6} className="head">
+            Problème identifié
+          </Grid>
 
-        <Grid md={4} xs={6} className="head">
-          <TextField
-            fullWidth
-            select
-            value={state}
-            SelectProps={{
-              native: true,
-            }}
-            helperText=""
-            className={
-              maintenance.state === "FAIT" ? "state-done" : "state-todo"
-            }
-            onChange={(e) => setState(e.target.value as Maintenance["state"])}
-          >
-            {states.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid md={4} xs={6} className="head">
-          <TextField label="" onChange={() => {}} />
-        </Grid>
-        <Grid md={4} xs={6} className="head">
-          <Checkbox
-            checked={problem}
-            onChange={(e) => setProblem(e.target.checked)}
-          />
-        </Grid>
+          <Grid md={4} xs={6} className="head">
+            <TextField
+              fullWidth
+              select
+              value={state}
+              SelectProps={{
+                native: true,
+              }}
+              helperText=""
+              className={
+                maintenance.state === "FAIT" ? "state-done" : "state-todo"
+              }
+              onChange={(e) => setState(e.target.value as Maintenance["state"])}
+            >
+              {states.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid md={4} xs={6} className="head">
+            <TextField label="" onChange={() => {}} />
+          </Grid>
+          <Grid md={4} xs={6} className="head">
+            <Checkbox
+              checked={problem}
+              onChange={(e) => setProblem(e.target.checked)}
+            />
+          </Grid>
 
-        <Grid md={12} xs={12} className="head">
-          Observations
+          <Grid md={12} xs={12} className="head">
+            Observations
+          </Grid>
+          <Grid md={12} xs={12} className="head">
+            <TextField
+              fullWidth
+              multiline
+              label={""}
+              defaultValue={observations}
+              onChange={(e) => setObservations(e.target.value)}
+            />
+          </Grid>
         </Grid>
-        <Grid md={12} xs={12} className="head">
-          <TextField
-            fullWidth
-            multiline
-            label={""}
-            defaultValue={observations}
-            onChange={(e) => setObservations(e.target.value)}
-          />
-        </Grid>
-      </Grid>
+      )}
+
       <Button variant="contained" onClick={handleSave}>
         Enregistrer
       </Button>
