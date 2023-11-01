@@ -110,3 +110,17 @@ font-size: 1.2em;
 .maintenance-table .MuiGrid-root{
   margin-top: 0.5em;
 }
+
+ 
+.maintenance-table   .MuiNativeSelect-select{
+  font-weight: bold;
+}
+.maintenance-table .state-todo .MuiNativeSelect-select{
+  
+  color:red!important
+}
+
+.maintenance-table .state-done .MuiNativeSelect-select{
+ 
+  color:green!important
+}

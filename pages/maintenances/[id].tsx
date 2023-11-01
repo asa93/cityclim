@@ -87,6 +87,9 @@ export default function Component() {
               native: true,
             }}
             helperText=""
+            className={
+              maintenance.state === "FAIT" ? "state-done" : "state-todo"
+            }
           >
             {states.map((option) => (
               <option key={option.value} value={option.value}>
@@ -103,7 +106,7 @@ export default function Component() {
         </Grid>
 
         <Grid md={12} className="head">
-          Observation
+          Observations
         </Grid>
         <Grid md={12} className="head">
           <TextField
