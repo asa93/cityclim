@@ -39,14 +39,17 @@ export default async (req, res) => {
       res.status(200).json(data);
     }
   } else if (req.method == "POST") {
-    const { name, account } = req.body;
+    const { id, state, problem, observations } = req.body;
 
-    await supabase
-      .from("Places")
-      .insert([{ name: name, account: account }])
-      .select();
+    let object = { problem, state, observations };
 
-    res.status(200).json({ error: null });
+    console.log(object);
+    const { data, error } = await supabase
+      .from("Maintenances")
+      .update(object)
+      .eq("id", id);
+
+    res.status(200).json({ data, error });
   } else {
     return res.status(400).json({ data: null, error: "method not authorized" });
   }

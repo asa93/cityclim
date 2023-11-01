@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
+import axios from "axios";
 import { useRouter } from "next/router";
-
 import Layout from "../../components/layout";
-
 import { Maintenance } from "../../types/types";
-
 import { Grid, Button, TextField, Divider, Checkbox } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 
 import { formatDate } from "../../utils";
 
+const states = [
+  {
+    value: "A FAIRE" as Maintenance["state"],
+    label: "A FAIRE",
+  },
+  {
+    value: "FAIT" as Maintenance["state"],
+    label: "FAIT",
+  },
+];
+
 export default function Component() {
   const id = useRouter().query.id;
-
-  if (!id) return null;
 
   const [{ data, loading, error }] = useAxios({
     url: process.env.NEXT_PUBLIC_API + "/api/maintenances",
@@ -23,20 +30,28 @@ export default function Component() {
   });
 
   const maintenance: Maintenance = data ? data[0] : null;
-  console.log("maintenance ", id, data, error);
 
+  const [state, setState] = useState<Maintenance["state"]>("A FAIRE");
+  const [problem, setProblem] = useState(false);
+  const [observations, setObservations] = useState("");
+
+  useEffect(() => {
+    setState(maintenance ? maintenance.state : "A FAIRE");
+    setObservations(maintenance ? maintenance.observations : "");
+    setProblem(maintenance ? maintenance.problem : false);
+  }, [maintenance]);
+
+  const handleSave = async () => {
+    await axios.post(process.env.NEXT_PUBLIC_API + "/api/maintenances", {
+      id,
+      state,
+      problem,
+      observations,
+    });
+  };
+
+  if (!id) return null;
   if (!data) return null;
-
-  const states = [
-    {
-      value: "A FAIRE" as Maintenance["state"],
-      label: "A FAIRE",
-    },
-    {
-      value: "FAIT" as Maintenance["state"],
-      label: "FAIT",
-    },
-  ];
 
   return (
     <Layout title={"Maintenance #" + id}>
@@ -82,7 +97,7 @@ export default function Component() {
           <TextField
             fullWidth
             select
-            defaultValue={maintenance.state}
+            defaultValue={state}
             SelectProps={{
               native: true,
             }}
@@ -90,6 +105,7 @@ export default function Component() {
             className={
               maintenance.state === "FAIT" ? "state-done" : "state-todo"
             }
+            onChange={(e) => setState(e.target.value as Maintenance["state"])}
           >
             {states.map((option) => (
               <option key={option.value} value={option.value}>
@@ -102,7 +118,10 @@ export default function Component() {
           <TextField label="" onChange={() => {}} />
         </Grid>
         <Grid md={4} className="head">
-          <Checkbox checked={maintenance.problem} />
+          <Checkbox
+            checked={problem}
+            onChange={(e) => setProblem(e.target.checked)}
+          />
         </Grid>
 
         <Grid md={12} className="head">
@@ -113,12 +132,12 @@ export default function Component() {
             fullWidth
             multiline
             label={""}
-            defaultValue={maintenance.observations}
-            onChange={() => {}}
+            defaultValue={observations}
+            onChange={(e) => setObservations(e.target.value)}
           />
         </Grid>
       </Grid>
-      <Button variant="contained" onClick={() => {}}>
+      <Button variant="contained" onClick={handleSave}>
         Enregistrer
       </Button>
     </Layout>

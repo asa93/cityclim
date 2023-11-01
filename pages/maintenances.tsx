@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TextField } from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 import useAxios from "axios-hooks";
 import React, { useState } from "react";
@@ -76,10 +77,7 @@ export default function Component() {
                     key={r.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="left">
-                      {" "}
-                      <Link href={`/maintenances/${r.id}`}>{r.id}</Link>
-                    </TableCell>
+                    <TableCell align="left"> {r.id}</TableCell>
                     <TableCell align="right"> {r.account}</TableCell>
 
                     <TableCell align="right">{r.place}</TableCell>
@@ -99,6 +97,12 @@ export default function Component() {
                       {r.problem && <ReportProblemIcon color="error" />}
                     </TableCell>
                     <TableCell align="left">{formatDate(r.done_at)}</TableCell>
+                    <TableCell align="right">
+                      <Link href={`/maintenances/${r.id}`}>
+                        {" "}
+                        <OpenInNewIcon />{" "}
+                      </Link>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
