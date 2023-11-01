@@ -53,51 +53,61 @@ export default function Component() {
   if (!id) return null;
   if (!data) return null;
 
+  console.log("state", state);
+
   return (
     <Layout title={"Maintenance #" + id}>
       {loading && <LinearProgress />}
       {error && <Alert severity="error">{error.message}</Alert>}
 
       <Grid container spacing={0} className="maintenance-table">
-        <Grid md={3} className="head">
+        <Grid md={3} xs={6} className="head">
           Client{" "}
         </Grid>
-        <Grid md={2} className="head">
+        <Grid md={2} xs={6} className="head">
           Local{" "}
         </Grid>
-        <Grid md={2} className="head">
+        <Grid md={2} xs={6} className="head">
           Machine{" "}
         </Grid>
 
-        <Grid md={3} className="head">
+        <Grid md={3} xs={6} className="head">
           Fait le{" "}
         </Grid>
 
-        <Grid md={3}>{maintenance.account} </Grid>
-        <Grid md={2}>{maintenance.place} </Grid>
-        <Grid md={2}>{maintenance.unit} </Grid>
-        <Grid md={3}>{formatDate(maintenance.done_at)} </Grid>
+        <Grid md={3} xs={6}>
+          {maintenance.account}{" "}
+        </Grid>
+        <Grid md={2} xs={6}>
+          {maintenance.place}{" "}
+        </Grid>
+        <Grid md={2} xs={6}>
+          {maintenance.unit}{" "}
+        </Grid>
+        <Grid md={3} xs={6}>
+          {formatDate(maintenance.done_at)}{" "}
+        </Grid>
 
-        <Grid md={12}>
+        <Grid md={12} xs={12}>
           {" "}
           <Divider />{" "}
         </Grid>
 
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           Etat
         </Grid>
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           Devis
         </Grid>
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           Problème identifié
         </Grid>
 
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           <TextField
             fullWidth
             select
-            defaultValue={state}
+            value={state}
             SelectProps={{
               native: true,
             }}
@@ -114,20 +124,20 @@ export default function Component() {
             ))}
           </TextField>
         </Grid>
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           <TextField label="" onChange={() => {}} />
         </Grid>
-        <Grid md={4} className="head">
+        <Grid md={4} xs={6} className="head">
           <Checkbox
             checked={problem}
             onChange={(e) => setProblem(e.target.checked)}
           />
         </Grid>
 
-        <Grid md={12} className="head">
+        <Grid md={12} xs={12} className="head">
           Observations
         </Grid>
-        <Grid md={12} className="head">
+        <Grid md={12} xs={12} className="head">
           <TextField
             fullWidth
             multiline
