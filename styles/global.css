@@ -122,5 +122,10 @@ font-size: 1.2em;
 
 .maintenance-table .state-done .MuiNativeSelect-select{
  
-  color:green!important
+  color:#0fbd7a!important
+}
+
+.MuiSnackbarContent-root {
+  background-color: #0fbd7a;
+  
 }

@@ -50,24 +50,38 @@ export default function Component() {
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>
-                  <TableCell align="right">
+                  <TableCell>Client</TableCell>
+
+                  <TableCell>Local</TableCell>
+
+                  <TableCell>Machine</TableCell>
+                  <TableCell>Etat</TableCell>
+                  <TableCell>Problème</TableCell>
+                  <TableCell>Date</TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>
                     <TextField
                       label="Client"
                       onChange={(e) => setAccountFilter(e.target.value)}
                     />
                   </TableCell>
 
-                  <TableCell align="right">
+                  <TableCell>
                     <TextField
                       label="Local"
                       onChange={(e) => setPlaceFilter(e.target.value)}
                     />
                   </TableCell>
 
-                  <TableCell>Machine</TableCell>
-                  <TableCell>Etat</TableCell>
-                  <TableCell>Problème</TableCell>
-                  <TableCell>Date</TableCell>
+                  <TableCell> </TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
 

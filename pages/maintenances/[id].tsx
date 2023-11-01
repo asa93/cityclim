@@ -9,6 +9,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 
 import { formatDate } from "../../utils";
+import Snackbar from "@mui/material/Snackbar";
 
 const states = [
   {
@@ -35,7 +36,9 @@ export default function Component() {
   const [problem, setProblem] = useState(false);
   const [observations, setObservations] = useState("");
 
+  const [toast, showToast] = useState(false);
   const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     setState(maintenance ? maintenance.state : "A FAIRE");
     setObservations(maintenance ? maintenance.observations : "");
@@ -51,6 +54,7 @@ export default function Component() {
       observations,
     });
     setSaving(false);
+    showToast(true);
   };
 
   if (!id) return null;
@@ -62,6 +66,17 @@ export default function Component() {
       {(loading || saving) && <LinearProgress />}
 
       {error && <Alert severity="error">{error.message}</Alert>}
+
+      <Snackbar
+        open={toast}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={3000}
+        onClose={() => {
+          showToast(false);
+        }}
+        message="Enregistré"
+        action={null}
+      />
 
       {maintenance && (
         <Grid container spacing={0} className="maintenance-table">
