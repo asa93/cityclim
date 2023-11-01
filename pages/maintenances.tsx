@@ -48,6 +48,7 @@ export default function Component() {
             <Table sx={{}} aria-label="simple table">
               <TableHead>
                 <TableRow>
+                  <TableCell>#</TableCell>
                   <TableCell align="right">
                     <TextField
                       label="Client"
@@ -75,28 +76,29 @@ export default function Component() {
                     key={r.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <Link href={`/maintenances/${r.id}`}>
-                      <TableCell align="right">{r.account}</TableCell>
-                      <TableCell align="right">{r.place}</TableCell>
-                      <TableCell align="right">{r.unit}</TableCell>
-                      <TableCell align="left">
-                        {" "}
-                        <Chip
-                          label={r.state}
-                          color={
-                            r.state === MAINTENANCE_STATE.FAIT
-                              ? "success"
-                              : "warning"
-                          }
-                        />{" "}
-                      </TableCell>
-                      <TableCell align="left">
-                        {r.problem && <ReportProblemIcon color="error" />}
-                      </TableCell>
-                      <TableCell align="left">
-                        {formatDate(r.done_at)}
-                      </TableCell>
-                    </Link>
+                    <TableCell align="left">
+                      {" "}
+                      <Link href={`/maintenances/${r.id}`}>{r.id}</Link>
+                    </TableCell>
+                    <TableCell align="right"> {r.account}</TableCell>
+
+                    <TableCell align="right">{r.place}</TableCell>
+                    <TableCell align="right">{r.unit}</TableCell>
+                    <TableCell align="left">
+                      {" "}
+                      <Chip
+                        label={r.state}
+                        color={
+                          r.state === MAINTENANCE_STATE.FAIT
+                            ? "success"
+                            : "warning"
+                        }
+                      />{" "}
+                    </TableCell>
+                    <TableCell align="left">
+                      {r.problem && <ReportProblemIcon color="error" />}
+                    </TableCell>
+                    <TableCell align="left">{formatDate(r.done_at)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -24,14 +24,7 @@ body {
   box-sizing: border-box;
 }
 
-a {
-  color: white;
-  text-decoration: none;
-}
 
-a:hover {
-  text-decoration: none;
-}
 
 img {
   max-width: 100%;
@@ -91,6 +84,29 @@ thead th.MuiTableCell-root {
   font-weight:bold  !important;
 }
 
-.foo{
-  
+.Sidebar a{
+  color: white;
+ 
+}
+
+a {
+  text-decoration: none;
+  color:inherit
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.maintenance-table .head{
+font-weight: bold;
+font-size: 1.2em;
+}
+
+.maintenance-table .MuiCheckbox-root .MuiSvgIcon-root{
+ color: white;
+}
+
+.maintenance-table .MuiGrid-root{
+  margin-top: 0.5em;
 }
