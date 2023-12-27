@@ -13,7 +13,7 @@ export default async (req, res) => {
     let query = supabase
       .from("Maintenances")
       .select(
-        "* , Units!inner( id, Places!inner (name, Accounts!inner(name) ) )"
+        "* , Units!inner( id, reference, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
       )
       .ilike("Units.Places.name", `%${place}%`)
       .ilike("Units.Places.Accounts.name", `%${account}%`)
@@ -33,15 +33,17 @@ export default async (req, res) => {
         return {
           place: r.Units.Places.name,
           account: r.Units.Places.Accounts.name,
+          reference: r.Units.reference,
+          checkpoints_ref: r.Units.References.checkpoints,
           ...r,
         };
       });
       res.status(200).json(data);
     }
   } else if (req.method == "POST") {
-    const { id, state, problem, observations } = req.body;
+    const { id, state, problem, observations, checkpoints } = req.body;
 
-    let object = { problem, state, observations };
+    let object = { problem, state, observations, checkpoints };
 
     console.log(object);
     const { data, error } = await supabase

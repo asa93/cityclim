@@ -35,6 +35,7 @@ export default function Component() {
   const [state, setState] = useState<Maintenance["state"]>("A FAIRE");
   const [problem, setProblem] = useState(false);
   const [observations, setObservations] = useState("");
+  const [checkpoints, setCheckpoints] = useState({});
 
   const [toast, showToast] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -43,6 +44,13 @@ export default function Component() {
     setState(maintenance ? maintenance.state : "A FAIRE");
     setObservations(maintenance ? maintenance.observations : "");
     setProblem(maintenance ? maintenance.problem : false);
+
+    if (maintenance)
+      setCheckpoints(
+        maintenance.checkpoints
+          ? maintenance.checkpoints
+          : maintenance.checkpoints_ref
+      );
   }, [maintenance]);
 
   const handleSave = async () => {
@@ -52,14 +60,20 @@ export default function Component() {
       state,
       problem,
       observations,
+      checkpoints,
     });
     setSaving(false);
     showToast(true);
   };
 
+  const handleCheckpoint = async (index, value) => {
+    checkpoints[index].checked = value;
+    setCheckpoints(checkpoints);
+  };
   if (!id) return null;
 
-  console.log("state", state);
+  console.log("maintenance", maintenance);
+  console.log("checkpoints", checkpoints);
 
   return (
     <Layout title={"Maintenance #" + id}>
@@ -90,6 +104,10 @@ export default function Component() {
             Machine{" "}
           </Grid>
 
+          <Grid md={2} xs={6} className="head">
+            Référence{" "}
+          </Grid>
+
           <Grid md={3} xs={6} className="head">
             Fait le{" "}
           </Grid>
@@ -102,6 +120,9 @@ export default function Component() {
           </Grid>
           <Grid md={2} xs={6}>
             {maintenance.unit}{" "}
+          </Grid>
+          <Grid md={2} xs={6}>
+            {maintenance.reference}{" "}
           </Grid>
           <Grid md={3} xs={6}>
             {formatDate(maintenance.done_at)}{" "}
@@ -164,6 +185,26 @@ export default function Component() {
               defaultValue={observations}
               onChange={(e) => setObservations(e.target.value)}
             />
+          </Grid>
+
+          <Grid md={12} xs={12} className="head">
+            Points de contrôle
+          </Grid>
+          <Grid md={12} xs={12} className="head">
+            {checkpoints &&
+              Object.keys(checkpoints).length > 0 &&
+              (checkpoints as Array<any>).map((c, i) => {
+                return (
+                  <div key={i}>
+                    {" "}
+                    <Checkbox
+                      checked={c.checked}
+                      onChange={(e) => handleCheckpoint(i, e.target.checked)}
+                    />
+                    {c.name}
+                  </div>
+                );
+              })}
           </Grid>
         </Grid>
       )}
