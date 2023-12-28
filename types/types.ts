@@ -12,4 +12,4 @@ export type Maintenance = Database["public"]["Tables"]["Maintenances"]["Row"] & 
 
 export type Reference = Database["public"]["Tables"]["References"]["Row"]   
 
-export type Estimates = Database["public"]["Tables"]["Estimates"]["Row"]   
+export type Estimate = Database["public"]["Tables"]["Estimates"]["Row"]   & { account: string, place: string, reference: string}
