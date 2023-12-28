@@ -11,3 +11,5 @@ export type Unit = Database["public"]["Tables"]["Units"]["Row"] & { account: str
 export type Maintenance = Database["public"]["Tables"]["Maintenances"]["Row"] & { account: string, place: string, reference: string, checkpoints: object, checkpoints_ref: object}
 
 export type Reference = Database["public"]["Tables"]["References"]["Row"]   
+
+export type Estimates = Database["public"]["Tables"]["Estimates"]["Row"]   

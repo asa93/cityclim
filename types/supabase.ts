@@ -30,8 +30,51 @@ export interface Database {
         }
         Relationships: []
       }
+      Estimates: {
+        Row: {
+          created_at: string
+          doc_link: string | null
+          id: number
+          maintenance: number | null
+          state: Database["public"]["Enums"]["ESTIMATE_STATE"] | null
+          unit: number | null
+        }
+        Insert: {
+          created_at?: string
+          doc_link?: string | null
+          id?: number
+          maintenance?: number | null
+          state?: Database["public"]["Enums"]["ESTIMATE_STATE"] | null
+          unit?: number | null
+        }
+        Update: {
+          created_at?: string
+          doc_link?: string | null
+          id?: number
+          maintenance?: number | null
+          state?: Database["public"]["Enums"]["ESTIMATE_STATE"] | null
+          unit?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Estimates_maintenance_fkey"
+            columns: ["maintenance"]
+            isOneToOne: false
+            referencedRelation: "Maintenances"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Estimates_unit_fkey"
+            columns: ["unit"]
+            isOneToOne: false
+            referencedRelation: "Units"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       Maintenances: {
         Row: {
+          checkpoints: Json | null
           created_at: string
           done_at: string | null
           id: number
@@ -41,6 +84,7 @@ export interface Database {
           unit: number | null
         }
         Insert: {
+          checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
           id?: number
@@ -50,6 +94,7 @@ export interface Database {
           unit?: number | null
         }
         Update: {
+          checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
           id?: number
@@ -129,6 +174,7 @@ export interface Database {
           last_maintenance: string | null
           name: string | null
           place_id: number | null
+          reference: string | null
           serial: string | null
         }
         Insert: {
@@ -138,6 +184,7 @@ export interface Database {
           last_maintenance?: string | null
           name?: string | null
           place_id?: number | null
+          reference?: string | null
           serial?: string | null
         }
         Update: {
@@ -147,6 +194,7 @@ export interface Database {
           last_maintenance?: string | null
           name?: string | null
           place_id?: number | null
+          reference?: string | null
           serial?: string | null
         }
         Relationships: [
@@ -156,6 +204,13 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "Places"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Units_reference_fkey"
+            columns: ["reference"]
+            isOneToOne: false
+            referencedRelation: "References"
+            referencedColumns: ["name"]
           }
         ]
       }
@@ -191,6 +246,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      ESTIMATE_STATE: "A FAIRE" | "FAIT" | "ACCEPTE"
       MAINTENANCE_STATE: "FAIT" | "A FAIRE"
       ROLE: "ADMIN" | "TECHNICIEN" | "CLIENT"
     }
