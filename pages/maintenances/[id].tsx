@@ -113,7 +113,7 @@ export default function Component() {
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            Fait le{" "}
+            A faire le{" "}
           </Grid>
 
           <Grid md={2} xs={6}>
