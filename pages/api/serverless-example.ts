@@ -15,6 +15,7 @@ export default async function handler(
   // const query = supabase
   // .from("Maintenances")
   // .select(
+    
   //   "* , Units!inner( id, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
   // )
 
