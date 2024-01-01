@@ -8,8 +8,8 @@ export type  Place = Database["public"]["Tables"]["Places"]["Row"] & { account: 
 
 export type Unit = Database["public"]["Tables"]["Units"]["Row"] & { account: string, place: string}
 
-export type Maintenance = Database["public"]["Tables"]["Maintenances"]["Row"] & { account: string, place: string, reference: string, checkpoints: object, checkpoints_ref: object}
+export type Maintenance = Database["public"]["Tables"]["Maintenances"]["Row"] & { account: string, place: string, reference: string,  serial: string, checkpoints: object, checkpoints_ref: object}
 
 export type Reference = Database["public"]["Tables"]["References"]["Row"]   
 
-export type Estimate = Database["public"]["Tables"]["Estimates"]["Row"]   & { account: string, place: string, reference: string}
+export type Estimate = Database["public"]["Tables"]["Estimates"]["Row"]   & { account: string, place: string, reference: string, serial: string}

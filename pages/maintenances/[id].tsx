@@ -94,7 +94,7 @@ export default function Component() {
 
       {maintenance && (
         <Grid container spacing={0} className="maintenance-table">
-          <Grid md={3} xs={6} className="head">
+          <Grid md={2} xs={6} className="head">
             Client{" "}
           </Grid>
           <Grid md={2} xs={6} className="head">
@@ -108,11 +108,15 @@ export default function Component() {
             Référence{" "}
           </Grid>
 
-          <Grid md={3} xs={6} className="head">
+          <Grid md={2} xs={6} className="head">
+            # Série{" "}
+          </Grid>
+
+          <Grid md={2} xs={6} className="head">
             Fait le{" "}
           </Grid>
 
-          <Grid md={3} xs={6}>
+          <Grid md={2} xs={6}>
             {maintenance.account}{" "}
           </Grid>
           <Grid md={2} xs={6}>
@@ -124,7 +128,10 @@ export default function Component() {
           <Grid md={2} xs={6}>
             {maintenance.reference}{" "}
           </Grid>
-          <Grid md={3} xs={6}>
+          <Grid md={2} xs={6}>
+            {maintenance.serial}{" "}
+          </Grid>
+          <Grid md={2} xs={6}>
             {formatDate(maintenance.done_at)}{" "}
           </Grid>
 
@@ -175,10 +182,10 @@ export default function Component() {
             />
           </Grid>
 
-          <Grid md={12} xs={12} className="head">
+          <Grid md={8} xs={12} className="head">
             Observations
           </Grid>
-          <Grid md={12} xs={12} className="head">
+          <Grid md={6} xs={12} className="head">
             <TextField
               fullWidth
               multiline

@@ -81,25 +81,29 @@ export default function Component() {
 
       {estimate && (
         <Grid container spacing={0} className="estimate-table">
-          <Grid md={3} xs={6} className="head">
-            Client{" "}
+          <Grid md={2} xs={6} className="head">
+            <h2>Client</h2>
           </Grid>
           <Grid md={2} xs={6} className="head">
-            Local{" "}
+            <h2>Local</h2>{" "}
           </Grid>
           <Grid md={2} xs={6} className="head">
-            Machine{" "}
+            <h2>Machine</h2>{" "}
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            Référence{" "}
+            <h2>Référence</h2>{" "}
           </Grid>
 
-          <Grid md={3} xs={6} className="head">
-            Créé le{" "}
+          <Grid md={2} xs={6} className="head">
+            <h2># Série</h2>{" "}
           </Grid>
 
-          <Grid md={3} xs={6}>
+          <Grid md={2} xs={6} className="head">
+            <h2>Créé le</h2>{" "}
+          </Grid>
+
+          <Grid md={2} xs={6}>
             {estimate.account}{" "}
           </Grid>
           <Grid md={2} xs={6}>
@@ -111,7 +115,10 @@ export default function Component() {
           <Grid md={2} xs={6}>
             {estimate.reference}{" "}
           </Grid>
-          <Grid md={3} xs={6}>
+          <Grid md={2} xs={6}>
+            {estimate.serial}{" "}
+          </Grid>
+          <Grid md={2} xs={6}>
             {formatDate(estimate.created_at)}{" "}
           </Grid>
 
@@ -120,15 +127,17 @@ export default function Component() {
             <Divider />{" "}
           </Grid>
 
-          <Grid md={6} xs={6} className="head">
-            Etat
+          <Grid md={3} xs={6} className="head">
+            <h2> Etat</h2>
           </Grid>
 
-          <Grid md={6} xs={6} className="head">
-            Lien Document
+          <Grid md={3} xs={6} className="head">
+            <h2>Lien Document</h2>
           </Grid>
 
-          <Grid md={6} xs={6} className="head">
+          <Grid md={6} xs={0}></Grid>
+
+          <Grid md={3} xs={6} className="head">
             <TextField
               fullWidth
               select
@@ -150,7 +159,7 @@ export default function Component() {
             </TextField>
           </Grid>
 
-          <Grid md={6} xs={6} className="head">
+          <Grid md={5} xs={6} className="head">
             <TextField
               fullWidth
               multiline

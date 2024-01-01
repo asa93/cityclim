@@ -13,7 +13,7 @@ export default async (req, res) => {
     let query = supabase
       .from("Maintenances")
       .select(
-        "* , Units!inner( id, reference, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
+        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
       )
       .ilike("Units.Places.name", `%${place}%`)
       .ilike("Units.Places.Accounts.name", `%${account}%`)
@@ -35,6 +35,7 @@ export default async (req, res) => {
           account: r.Units.Places.Accounts.name,
           reference: r.Units.reference,
           checkpoints_ref: r.Units.References.checkpoints,
+          serial: r.Units.serial,
           ...r,
         };
       });
