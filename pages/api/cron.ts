@@ -12,19 +12,27 @@ export default async function handler(
   response: NextApiResponse
 ) {
 
-  const query = supabase
-  .from("Maintenances")
-  .select(
-    "* , Units!inner( id, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
-  )
+  // const query = supabase
+  // .from("Maintenances")
+  // .select(
+  //   "* , Units!inner( id, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
+  // )
 
-  .limit(2);
+  // .limit(2);
 
-  const { data, error } = await query;
+  // const { data, error } = await query;
+
+  const { data, error } = await supabase.rpc('job_maintenance')
 
   if(!error)
   response.status(200).json({
     body: data,
+    query: request.query,
+    cookies: request.cookies,
+  });
+  else 
+  response.status(400).json({
+    body: {msg: error.message},
     query: request.query,
     cookies: request.cookies,
   });
