@@ -94,8 +94,18 @@ a {
   color:#055681
 }
 
+a.white {
+  text-decoration: none;
+  color:white;
+}
+
 a:hover {
   text-decoration: none;
+}
+
+a.white:hover {
+  text-decoration: none;
+  color:#0fbd7a
 }
 
 .maintenance-table .head{

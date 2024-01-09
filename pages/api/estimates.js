@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import maintenances from "./maintenances";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
@@ -42,17 +43,28 @@ export default async (req, res) => {
       res.status(200).json(data);
     }
   } else if (req.method == "POST") {
-    const { id, state, doc_link } = req.body;
+    const { id, state, doc_link, maintenance, unit } = req.body;
 
-    let object = { state, doc_link };
+    let object = { state, doc_link, maintenance, unit };
 
     console.log(object);
-    const { data, error } = await supabase
-      .from("Estimates")
-      .update(object)
-      .eq("id", id);
 
-    res.status(200).json({ data, error });
+    if (id) {
+      const { data, error } = await supabase
+        .from("Estimates")
+        .update(object)
+        .eq("id", id);
+
+      res.status(200).json({ data, error });
+    } else {
+      const { data, error } = await supabase
+        .from("Estimates")
+        .insert(object)
+        .select();
+
+      console.log("data", data);
+      res.status(200).json({ data, error });
+    }
   } else {
     return res.status(400).json({ data: null, error: "method not authorized" });
   }

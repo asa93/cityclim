@@ -7,7 +7,7 @@ import { Maintenance } from "../../types/types";
 import { Grid, Button, TextField, Divider, Checkbox } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
-
+import Link from "next/link";
 import { formatDate } from "../../utils";
 import Snackbar from "@mui/material/Snackbar";
 
@@ -70,6 +70,19 @@ export default function Component() {
     checkpoints[index].checked = value;
     setCheckpoints(checkpoints);
   };
+
+  const handleCreateEstimate = async () => {
+    if (!maintenance) return;
+
+    setSaving(true);
+    await axios.post(process.env.NEXT_PUBLIC_API + "/api/estimates", {
+      maintenance: id,
+      unit: maintenance.unit,
+    });
+    setSaving(false);
+    showToast(true);
+  };
+
   if (!id) return null;
 
   console.log("maintenance", maintenance);
@@ -172,8 +185,18 @@ export default function Component() {
             </TextField>
           </Grid>
           <Grid md={4} xs={6} className="head">
-            {}
-            <TextField label="" onChange={() => {}} />
+            {/* <Link
+              href={`/estimates/${maintenance.estimate_id}`}
+              className="white"
+            >
+              {maintenance.estimate_id}
+            </Link> */}
+
+            {!maintenance.estimate_id && (
+              <Button variant="contained" onClick={handleCreateEstimate}>
+                Créer devis
+              </Button>
+            )}
           </Grid>
           <Grid md={4} xs={6} className="head">
             <Checkbox

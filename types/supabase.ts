@@ -77,6 +77,7 @@ export interface Database {
           checkpoints: Json | null
           created_at: string
           done_at: string | null
+          estimate_id: number | null
           id: number
           observations: string | null
           problem: boolean | null
@@ -87,6 +88,7 @@ export interface Database {
           checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
+          estimate_id?: number | null
           id?: number
           observations?: string | null
           problem?: boolean | null
@@ -97,6 +99,7 @@ export interface Database {
           checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
+          estimate_id?: number | null
           id?: number
           observations?: string | null
           problem?: boolean | null
@@ -104,6 +107,13 @@ export interface Database {
           unit?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "Maintenances_estimate_id_fkey"
+            columns: ["estimate_id"]
+            isOneToOne: false
+            referencedRelation: "Estimates"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Maintenances_unit_fkey"
             columns: ["unit"]
@@ -243,7 +253,14 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      hello_world: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      job_maintenance: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       ESTIMATE_STATE: "A FAIRE" | "FAIT" | "ACCEPTE"
