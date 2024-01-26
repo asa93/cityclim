@@ -61,6 +61,11 @@ export default function Component() {
     setNewCheckPoints(obj);
   };
 
+  const formatCheckpoints = (checkpoints): string => {
+    return checkpoints.map((c) => c.name).join(";");
+    //.slice(0, 3);
+  };
+
   return (
     <Layout title={"Références"}>
       {(loading || saving) && <LinearProgress />}
@@ -150,7 +155,7 @@ export default function Component() {
                     <TableCell align="left"> {r.name}</TableCell>
                     <TableCell align="left"> {r.doc}</TableCell>
                     <TableCell align="left">
-                      {JSON.stringify(r.checkpoints)}
+                      {formatCheckpoints(r.checkpoints)}
                     </TableCell>
                   </TableRow>
                 ))}
