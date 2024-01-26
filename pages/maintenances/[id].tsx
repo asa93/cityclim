@@ -35,7 +35,7 @@ export default function Component() {
   const [state, setState] = useState<Maintenance["state"]>("A FAIRE");
   const [problem, setProblem] = useState(false);
   const [observations, setObservations] = useState("");
-  const [checkpoints, setCheckpoints] = useState({});
+  const [checkpoints, setCheckpoints] = useState([]);
 
   const [toast, showToast] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -47,9 +47,9 @@ export default function Component() {
 
     if (maintenance)
       setCheckpoints(
-        maintenance.checkpoints
+        (maintenance.checkpoints
           ? maintenance.checkpoints
-          : maintenance.checkpoints_ref
+          : maintenance.checkpoints_ref) as any
       );
   }, [maintenance]);
 
@@ -67,8 +67,9 @@ export default function Component() {
   };
 
   const handleCheckpoint = async (index, value) => {
-    checkpoints[index].checked = value;
-    setCheckpoints(checkpoints);
+    const newObj = [...checkpoints];
+    newObj[index].checked = value;
+    setCheckpoints(newObj);
   };
 
   const handleCreateEstimate = async () => {
