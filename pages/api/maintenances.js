@@ -52,7 +52,7 @@ export default async (req, res) => {
       .update(object)
       .eq("id", id);
 
-    res.status(200).json({ data, error });
+    return res.status(200).json({ data, error });
   } else {
     return res.status(400).json({ data: null, error: "method not authorized" });
   }

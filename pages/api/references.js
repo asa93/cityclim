@@ -27,7 +27,24 @@ export default async (req, res) => {
       res.status(200).json(data);
     }
   } else if (req.method == "POST") {
-    return res.status(400).json();
+    const { id, doc, checkpoints, name } = req.body;
+
+    let object = { doc, checkpoints, name };
+
+    if (!id) {
+      const { data, error } = await supabase
+        .from("References")
+        .insert([object])
+        .select();
+
+      return res.status(error ? 400 : 200).json({ data, error });
+    } else {
+      const { data, error } = await supabase
+        .from("Maintenances")
+        .update(object)
+        .eq("id", id);
+      return res.status(error ? 400 : 200).json({ data, error });
+    }
   } else {
     return res.status(400).json({ data: null, error: "method not authorized" });
   }
