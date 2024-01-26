@@ -57,7 +57,7 @@ export default function Component() {
     for (const checkpoint of text.split("\n")) {
       obj.push({ name: checkpoint });
     }
-    console.log(obj);
+
     setNewCheckPoints(obj);
   };
 

@@ -1,4 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
+import { getCookies } from "cookies-next";
+import jwt from "jsonwebtoken";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
@@ -8,6 +10,13 @@ const supabase = createClient(
 
 export default async (req, res) => {
   const { account, place, id } = req.query;
+
+  const { session } = getCookies({ req, res });
+
+  let decoded;
+  if (session) {
+    decoded = jwt.verify(session, process.env.JWT_SECRET);
+  }
 
   if (req.method == "GET") {
     let query = supabase
@@ -23,13 +32,14 @@ export default async (req, res) => {
     if (id) {
       query = query.eq("id", id);
     }
+    if (decoded.role === "CLIENT" && decoded.client_id)
+      query = query.eq("id", decoded.client_id);
 
     let { data, error } = await query;
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {
       data = data.map((r) => {
-        console.log(r);
         return {
           place: r.Units.Places.name,
           account: r.Units.Places.Accounts.name,
@@ -46,7 +56,6 @@ export default async (req, res) => {
 
     let object = { problem, state, observations, checkpoints };
 
-    console.log(object);
     const { data, error } = await supabase
       .from("Maintenances")
       .update(object)

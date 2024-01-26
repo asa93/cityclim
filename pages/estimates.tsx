@@ -55,7 +55,10 @@ export default function Component() {
                   <TableCell>Local</TableCell>
 
                   <TableCell>Machine</TableCell>
+
                   <TableCell>Reference</TableCell>
+
+                  <TableCell>#Maintenance</TableCell>
                 </TableRow>
               </TableHead>
 
@@ -109,6 +112,7 @@ export default function Component() {
                     <TableCell align="right">{r.place}</TableCell>
                     <TableCell align="right">{r.unit}</TableCell>
                     <TableCell align="right">{r.reference}</TableCell>
+                    <TableCell align="right">{r.maintenance}</TableCell>
 
                     <TableCell align="right">
                       <Link href={`/estimates/${r.id}`}>

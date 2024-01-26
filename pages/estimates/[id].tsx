@@ -92,11 +92,11 @@ export default function Component() {
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            <h2>Maint.</h2>{" "}
+            <h2>Réf.</h2>{" "}
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            <h2>Réf.</h2>{" "}
+            <h2>#Maint.</h2>{" "}
           </Grid>
 
           <Grid md={2} xs={6} className="head">
@@ -112,6 +112,11 @@ export default function Component() {
           <Grid md={2} xs={6}>
             {estimate.unit}{" "}
           </Grid>
+
+          <Grid md={2} xs={6}>
+            {estimate.reference}{" "}
+          </Grid>
+
           <Grid md={2} xs={6}>
             <Link
               href={`/maintenances/${estimate.maintenance}`}
@@ -119,10 +124,6 @@ export default function Component() {
             >
               {estimate.maintenance}{" "}
             </Link>
-          </Grid>
-
-          <Grid md={2} xs={6}>
-            {estimate.reference}{" "}
           </Grid>
 
           <Grid md={2} xs={6}>

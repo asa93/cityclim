@@ -35,6 +35,7 @@ export default async (req, res) => {
       const userData = {
         email: user.email,
         role: user.role,
+        client_id: user.client_id,
       };
 
       const token = jwt.sign(userData, process.env.JWT_SECRET, {
