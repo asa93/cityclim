@@ -7,9 +7,9 @@ import { Estimate } from "../../types/types";
 import { Grid, Button, TextField, Divider } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
-
 import { formatDate } from "../../utils";
 import Snackbar from "@mui/material/Snackbar";
+import Link from "next/link";
 
 const states = [
   {
@@ -92,11 +92,11 @@ export default function Component() {
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            <h2>Référence</h2>{" "}
+            <h2>Maint.</h2>{" "}
           </Grid>
 
           <Grid md={2} xs={6} className="head">
-            <h2># Série</h2>{" "}
+            <h2>Réf.</h2>{" "}
           </Grid>
 
           <Grid md={2} xs={6} className="head">
@@ -113,11 +113,18 @@ export default function Component() {
             {estimate.unit}{" "}
           </Grid>
           <Grid md={2} xs={6}>
+            <Link
+              href={`/maintenances/${estimate.maintenance}`}
+              className="white"
+            >
+              {estimate.maintenance}{" "}
+            </Link>
+          </Grid>
+
+          <Grid md={2} xs={6}>
             {estimate.reference}{" "}
           </Grid>
-          <Grid md={2} xs={6}>
-            {estimate.serial}{" "}
-          </Grid>
+
           <Grid md={2} xs={6}>
             {formatDate(estimate.created_at)}{" "}
           </Grid>

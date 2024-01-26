@@ -10,6 +10,7 @@ import Alert from "@mui/material/Alert";
 
 import { formatDate } from "../../utils";
 import Snackbar from "@mui/material/Snackbar";
+import Link from "next/link";
 
 const states = [
   {
@@ -85,9 +86,6 @@ export default function Component() {
   };
 
   if (!id) return null;
-
-  console.log("maintenance", maintenance);
-  console.log("checkpoints", checkpoints);
 
   return (
     <Layout title={"Maintenance #" + id}>
@@ -186,12 +184,12 @@ export default function Component() {
             </TextField>
           </Grid>
           <Grid md={4} xs={6} className="head">
-            {/* <Link
+            <Link
               href={`/estimates/${maintenance.estimate_id}`}
               className="white"
             >
               {maintenance.estimate_id}
-            </Link> */}
+            </Link>
 
             {!maintenance.estimate_id && (
               <Button variant="contained" onClick={handleCreateEstimate}>
