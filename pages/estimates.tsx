@@ -35,12 +35,6 @@ export default function Component() {
   });
   const estimates: Estimate[] = estimates_;
 
-  const colors = {
-    [ESTIMATE_STATE.ACCEPTE]: "success",
-    [ESTIMATE_STATE.A_FAIRE]: "error",
-    [ESTIMATE_STATE.FAIT]: "warning",
-  };
-
   return (
     <Layout title={"Devis"}>
       {loading && <LinearProgress />}
@@ -99,7 +93,16 @@ export default function Component() {
                     <TableCell align="left"> {r.id}</TableCell>
                     <TableCell align="left">
                       {" "}
-                      <Chip label={r.state} color={colors[r.state]} />{" "}
+                      <Chip
+                        label={r.state}
+                        color={
+                          r.state === ESTIMATE_STATE.ACCEPTE
+                            ? "success"
+                            : r.state === ESTIMATE_STATE.A_FAIRE
+                            ? "error"
+                            : "warning"
+                        }
+                      />{" "}
                     </TableCell>
                     <TableCell align="right"> {r.account}</TableCell>
 
