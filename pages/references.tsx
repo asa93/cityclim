@@ -106,7 +106,7 @@ export default function Component() {
             label={""}
             defaultValue={newCheckpoints}
             onChange={(e) => handleCheckpoint(e.target.value)}
-            placeholder="Sautez une ligne entre chaque valeur"
+            placeholder="Sautez une ligne entre chaque valeur. 2 Références ne peuvent pas porter le même nom."
           />
 
           <Button variant="contained" onClick={handleSave}>
