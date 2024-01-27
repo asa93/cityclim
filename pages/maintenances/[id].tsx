@@ -12,6 +12,10 @@ import { formatDate } from "../../utils";
 import Snackbar from "@mui/material/Snackbar";
 import Link from "next/link";
 
+import { userState } from "../../context/user";
+import { useHookstate } from "@hookstate/core";
+import { ROLES } from "../../consts";
+
 const states = [
   {
     value: "A FAIRE" as Maintenance["state"],
@@ -24,6 +28,9 @@ const states = [
 ];
 
 export default function Component() {
+  const userState_ = useHookstate(userState);
+  const { role } = userState_.get();
+
   const id = useRouter().query.id;
 
   const [{ data, loading, error }] = useAxios({
@@ -152,10 +159,10 @@ export default function Component() {
             <Divider />{" "}
           </Grid>
 
-          <Grid md={4} xs={6} className="head">
+          <Grid md={6} xs={6} className="head">
             Etat
           </Grid>
-          <Grid md={4} xs={6} className="head">
+          <Grid md={2} xs={6} className="head">
             Devis
           </Grid>
           <Grid md={4} xs={6} className="head">
@@ -183,13 +190,24 @@ export default function Component() {
               ))}
             </TextField>
           </Grid>
-          <Grid md={4} xs={6} className="head">
-            <Link
-              href={`/estimates/${maintenance.estimate_id}`}
-              className="white"
-            >
-              {maintenance.estimate_id}
-            </Link>
+          <Grid md={2} xs={6} className="head"></Grid>
+          <Grid
+            md={2}
+            xs={6}
+            className="head"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {role !== ROLES.TECHNICIEN ? (
+              <Link
+                href={`/estimates/${maintenance.estimate_id}`}
+                className="white"
+              >
+                {maintenance.estimate_id}
+              </Link>
+            ) : (
+              maintenance.estimate_id
+            )}
 
             {!maintenance.estimate_id && (
               <Button variant="contained" onClick={handleCreateEstimate}>
