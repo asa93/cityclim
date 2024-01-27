@@ -1,6 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { getCookies } from "cookies-next";
-import jwt from "jsonwebtoken";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
@@ -11,12 +9,8 @@ const supabase = createClient(
 export default async (req, res) => {
   const { account, place, id } = req.query;
 
-  const { session } = getCookies({ req, res });
-
-  let decoded;
-  if (session) {
-    decoded = jwt.verify(session, process.env.JWT_SECRET);
-  }
+  const role = req.headers["x-user-role"];
+  const client_id = req.headers["x-user-client_id"];
 
   if (req.method == "GET") {
     let query = supabase
@@ -32,8 +26,7 @@ export default async (req, res) => {
     if (id) {
       query = query.eq("id", id);
     }
-    if (decoded.role === "CLIENT" && decoded.client_id)
-      query = query.eq("id", decoded.client_id);
+    if (role === "CLIENT") query = query.eq("id", client_id);
 
     let { data, error } = await query;
 
