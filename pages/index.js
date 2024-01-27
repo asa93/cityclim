@@ -5,7 +5,6 @@ import axios from "axios";
 
 import { userState } from "../context/user";
 import { useHookstate } from "@hookstate/core";
-import Divider from "@mui/material/Divider";
 
 export default function Home() {
   const userState_ = useHookstate(userState);
