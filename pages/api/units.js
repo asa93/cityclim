@@ -7,27 +7,33 @@ const supabase = createClient(
 );
 
 export default async (req, res) => {
-  const { account, place } = req.query;
+  const { account, place, range0, range1 } = req.query;
 
   if (req.method == "GET") {
-    let { data, error } = await supabase
+    let query = supabase
       .from("Units")
-      .select("name, Places!inner ( name, Accounts!inner (name) )  ")
+      .select("name, Places!inner ( name, Accounts!inner (name) )  ", {
+        count: "exact",
+      })
       .ilike("Places.name", `%${place}%`)
-      .ilike("Places.Accounts.name", `%${account}%`)
-      .limit(50);
+      .ilike("Places.Accounts.name", `%${account}%`);
+
+    if (range1 - range0 < 100 && range1 - range0 >= 0)
+      query = query.range(range0, range1);
+    else query = query.limit(100);
+
+    let { data, error, count } = await query;
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {
       data = data.map((r) => {
-        console.log(r);
         return {
           name: r.name,
           place: r.Places.name,
           account: r.Places.Accounts.name,
         };
       });
-      res.status(200).json(data);
+      res.status(200).json({ data: data, count: count });
     }
   } else if (req.method == "POST") {
     //todo

@@ -8,9 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, TextField } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import useAxios from "axios-hooks";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Autocomplete from "@mui/material/Autocomplete";
 import TablePagination from "@mui/material/TablePagination";
@@ -20,23 +20,55 @@ import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 
 import { Unit } from "../types/types";
+import { resultPerPage } from "../consts";
 
 export default function Component() {
-  const [showForm, setShowForm] = useState(false);
+  const [units, setUnits] = useState<Unit[]>([]);
 
+  //form
+  const [showForm, setShowForm] = useState(false);
   const [newName, setNewName] = useState("");
   const [newAccountId, setNewAccountId] = useState("");
 
+  //filters
   const [accountFilter, setAccountFilter] = useState("");
   const [placeFilter, setPlaceFilter] = useState("");
 
   const [accountFilter2, setaccountFilter2] = useState("");
 
-  const [{ data: units_, loading, error }] = useAxios({
-    url: process.env.NEXT_PUBLIC_API + "/api/units",
-    params: { account: accountFilter, place: placeFilter },
-  });
-  const units: Unit[] = units_;
+  //pagination
+  const [page, setPage] = useState(0);
+  const [resCount, setResCount] = useState(0);
+
+  //loading
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(
+    function () {
+      (async () => {
+        setLoading(true);
+        const res: AxiosResponse<any, any> = await axios.get(
+          process.env.NEXT_PUBLIC_API + "/api/units",
+          {
+            params: {
+              account: accountFilter,
+              place: placeFilter,
+              range0: page * resultPerPage,
+              range1: (page + 1) * resultPerPage - 1,
+            },
+          }
+        );
+
+        setUnits(res.data.data as Unit[]);
+        setResCount(res.data.count);
+        setLoading(false);
+
+        if (error) setError(error as any);
+      })();
+    },
+    [page, accountFilter, placeFilter]
+  );
 
   const [{ data: accounts }] = useAxios({
     url: process.env.NEXT_PUBLIC_APPURL + "/api/accounts",
@@ -134,10 +166,10 @@ export default function Component() {
           <TablePagination
             rowsPerPageOptions={[50]}
             component="div"
-            count={units.length}
-            rowsPerPage={50}
-            page={0}
-            onPageChange={() => {}}
+            count={resCount}
+            rowsPerPage={resultPerPage}
+            page={page}
+            onPageChange={(e, v) => setPage(v)}
             onRowsPerPageChange={() => {}}
           />
         </>
