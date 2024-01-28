@@ -10,8 +10,7 @@ import Paper from "@mui/material/Paper";
 import { TextField } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import useAxios from "axios-hooks";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import TablePagination from "@mui/material/TablePagination";
 
@@ -19,23 +18,57 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 
 import { formatDate } from "../utils";
-import { MAINTENANCE_STATE } from "../consts";
+import { MAINTENANCE_STATE, resultPerPage } from "../consts";
 import Chip from "@mui/material/Chip";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 
 import { Maintenance } from "../types/types";
 
 import Link from "next/link";
+import axios, { AxiosResponse } from "axios";
 
 export default function Component() {
+  const [maintenances, setMaintenances] = useState<Maintenance[]>([]);
+
+  //filters
   const [accountFilter, setAccountFilter] = useState("");
   const [placeFilter, setPlaceFilter] = useState("");
 
-  const [{ data: maintenances_, loading, error }] = useAxios({
-    url: process.env.NEXT_PUBLIC_API + "/api/maintenances",
-    params: { account: accountFilter, place: placeFilter },
-  });
-  const maintenances: Maintenance[] = maintenances_;
+  //pagination
+  const [page, setPage] = useState(0);
+
+  //loading
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handlePageChange = async (newPage: number) => {
+    setPage(newPage);
+  };
+
+  useEffect(
+    function () {
+      (async () => {
+        setLoading(true);
+        const res: AxiosResponse<any, any> = await axios.get(
+          process.env.NEXT_PUBLIC_API + "/api/maintenances",
+          {
+            params: {
+              account: accountFilter,
+              place: placeFilter,
+              range0: page * resultPerPage,
+              range1: (page + 1) * resultPerPage,
+            },
+          }
+        );
+
+        setMaintenances(res.data as Maintenance[]);
+        setLoading(false);
+
+        if (error) setError(error as any);
+      })();
+    },
+    [page, accountFilter, placeFilter]
+  );
 
   return (
     <Layout title={"Maintenance"}>
@@ -123,12 +156,12 @@ export default function Component() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[50]}
+            rowsPerPageOptions={[0]}
             component="div"
             count={maintenances.length}
-            rowsPerPage={50}
-            page={0}
-            onPageChange={() => {}}
+            rowsPerPage={resultPerPage}
+            page={page}
+            onPageChange={(e, newPage) => handlePageChange(newPage)}
             onRowsPerPageChange={() => {}}
           />
         </>

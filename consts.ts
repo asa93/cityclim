@@ -15,3 +15,4 @@ export const ESTIMATE_STATE = {
   ACCEPTE: "ACCEPTE"
 };
 
+export const resultPerPage = 50;

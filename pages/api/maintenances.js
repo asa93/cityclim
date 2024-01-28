@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export default async (req, res) => {
-  const { account, place, id } = req.query;
+  const { account, place, id, range0, range1 } = req.query;
 
   const role = req.headers["x-user-role"];
   const client_id = req.headers["x-user-client_id"];
@@ -19,9 +19,11 @@ export default async (req, res) => {
         "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
       )
       .ilike("Units.Places.name", `%${place}%`)
-      .ilike("Units.Places.Accounts.name", `%${account}%`)
+      .ilike("Units.Places.Accounts.name", `%${account}%`);
 
-      .limit(100);
+    if (range1 - range0 < 100 && range1 - range0 > 0)
+      query = query.range(range0, range1);
+    else query = query.limit(100);
 
     if (id) {
       query = query.eq("id", id);
