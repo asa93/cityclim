@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 export default async (req, res) => {
-  const { account, place, id } = req.query;
+  const { account, place, id, range0, range1 } = req.query;
 
   const role = req.headers["x-user-role"];
   const client_id = req.headers["x-user-client_id"];
@@ -16,24 +16,27 @@ export default async (req, res) => {
     let query = supabase
       .from("Estimates")
       .select(
-        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
+        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
+        { count: "exact" }
       )
       .ilike("Units.Places.name", `%${place}%`)
-      .ilike("Units.Places.Accounts.name", `%${account}%`)
+      .ilike("Units.Places.Accounts.name", `%${account}%`);
 
-      .limit(100);
+    console.log(range0, range1);
+    if (range1 - range0 < 100 && range1 - range0 >= 0)
+      query = query.range(range0, range1);
+    else query = query.limit(100);
 
     if (id) query = query.eq("id", id);
 
     if (role === "CLIENT")
       query = query.eq("Units.Places.Accounts.id", client_id);
 
-    let { data, error } = await query;
+    let { data, error, count } = await query;
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {
       data = data.map((r) => {
-        console.log(r);
         return {
           place: r.Units.Places.name,
           account: r.Units.Places.Accounts.name,
@@ -43,14 +46,12 @@ export default async (req, res) => {
           ...r,
         };
       });
-      res.status(200).json(data);
+      res.status(200).json({ data: data, count: count });
     }
   } else if (req.method == "POST") {
     const { id, state, doc_link, maintenance, unit } = req.body;
 
     let object = { state, doc_link, maintenance, unit };
-
-    console.log(object);
 
     if (id) {
       const { data, error } = await supabase
@@ -65,7 +66,6 @@ export default async (req, res) => {
         .insert(object)
         .select();
 
-      console.log("data", data);
       res.status(200).json({ data, error });
     }
   } else {

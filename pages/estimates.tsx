@@ -10,30 +10,61 @@ import Paper from "@mui/material/Paper";
 import { TextField } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-import useAxios from "axios-hooks";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import TablePagination from "@mui/material/TablePagination";
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
 
-import { ESTIMATE_STATE } from "../consts";
+import { ESTIMATE_STATE, resultPerPage } from "../consts";
 import Chip from "@mui/material/Chip";
 
 import { Estimate } from "../types/types";
 
 import Link from "next/link";
 
+import axios, { AxiosResponse } from "axios";
+
 export default function Component() {
+  const [estimates, setEstimates] = useState<Estimate[]>([]);
+
+  //filter
   const [accountFilter, setAccountFilter] = useState("");
   const [placeFilter, setPlaceFilter] = useState("");
 
-  const [{ data: estimates_, loading, error }] = useAxios({
-    url: process.env.NEXT_PUBLIC_API + "/api/estimates",
-    params: { account: accountFilter, place: placeFilter },
-  });
-  const estimates: Estimate[] = estimates_;
+  const [page, setPage] = useState(0);
+  const [resCount, setResCount] = useState(0);
+
+  //loading
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(
+    function () {
+      (async () => {
+        setLoading(true);
+        const res: AxiosResponse<any, any> = await axios.get(
+          process.env.NEXT_PUBLIC_API + "/api/estimates",
+          {
+            params: {
+              account: accountFilter,
+              place: placeFilter,
+              range0: page * resultPerPage,
+              range1: (page + 1) * resultPerPage - 1,
+            },
+          }
+        );
+
+        setEstimates(res.data.data as Estimate[]);
+        setResCount(res.data.count);
+        setLoading(false);
+
+        if (error) setError(error as any);
+      })();
+    },
+    [page, accountFilter, placeFilter]
+  );
 
   return (
     <Layout title={"Devis"}>
@@ -128,10 +159,10 @@ export default function Component() {
           <TablePagination
             rowsPerPageOptions={[50]}
             component="div"
-            count={estimates.length}
-            rowsPerPage={50}
-            page={0}
-            onPageChange={() => {}}
+            count={resCount}
+            rowsPerPage={resultPerPage}
+            page={page}
+            onPageChange={(e, newPage) => setPage(newPage)}
             onRowsPerPageChange={() => {}}
           />
         </>

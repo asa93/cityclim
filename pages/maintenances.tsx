@@ -36,14 +36,11 @@ export default function Component() {
 
   //pagination
   const [page, setPage] = useState(0);
+  const [resCount, setRescount] = useState(0);
 
   //loading
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const handlePageChange = async (newPage: number) => {
-    setPage(newPage);
-  };
 
   useEffect(
     function () {
@@ -56,12 +53,13 @@ export default function Component() {
               account: accountFilter,
               place: placeFilter,
               range0: page * resultPerPage,
-              range1: (page + 1) * resultPerPage,
+              range1: (page + 1) * resultPerPage - 1,
             },
           }
         );
 
-        setMaintenances(res.data as Maintenance[]);
+        setMaintenances(res.data.data as Maintenance[]);
+        setRescount(res.data.count);
         setLoading(false);
 
         if (error) setError(error as any);
@@ -158,10 +156,10 @@ export default function Component() {
           <TablePagination
             rowsPerPageOptions={[0]}
             component="div"
-            count={maintenances.length}
+            count={resCount}
             rowsPerPage={resultPerPage}
             page={page}
-            onPageChange={(e, newPage) => handlePageChange(newPage)}
+            onPageChange={(e, newPage) => setPage(newPage)}
             onRowsPerPageChange={() => {}}
           />
         </>

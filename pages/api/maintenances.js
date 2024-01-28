@@ -16,12 +16,14 @@ export default async (req, res) => {
     let query = supabase
       .from("Maintenances")
       .select(
-        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )"
+        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
+        { count: "exact" }
       )
       .ilike("Units.Places.name", `%${place}%`)
       .ilike("Units.Places.Accounts.name", `%${account}%`);
 
-    if (range1 - range0 < 100 && range1 - range0 > 0)
+    console.log(range0, range1);
+    if (range1 - range0 < 100 && range1 - range0 >= 0)
       query = query.range(range0, range1);
     else query = query.limit(100);
 
@@ -31,7 +33,7 @@ export default async (req, res) => {
     if (role === "CLIENT")
       query = query.eq("Units.Places.Accounts.id", client_id);
 
-    let { data, error } = await query;
+    let { data, count, error } = await query;
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {
@@ -45,7 +47,7 @@ export default async (req, res) => {
           ...r,
         };
       });
-      res.status(200).json(data);
+      res.status(200).json({ data: data, count: count });
     }
   } else if (req.method == "POST") {
     const { id, state, problem, observations, checkpoints } = req.body;
