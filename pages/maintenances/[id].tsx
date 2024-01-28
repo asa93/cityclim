@@ -38,7 +38,7 @@ export default function Component() {
     params: { id: id, account: "", place: "" },
   });
 
-  const maintenance: Maintenance = data ? data[0] : null;
+  const maintenance: Maintenance = data && data?.data[0];
 
   const [state, setState] = useState<Maintenance["state"]>("A FAIRE");
   const [problem, setProblem] = useState(false);
@@ -94,6 +94,7 @@ export default function Component() {
 
   if (!id) return null;
 
+  console.log("maint", maintenance);
   return (
     <Layout title={"Maintenance #" + id}>
       {(loading || saving) && <LinearProgress />}

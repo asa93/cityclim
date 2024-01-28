@@ -34,7 +34,7 @@ export default function Component() {
     params: { id: id, account: "", place: "" },
   });
 
-  const estimate: Estimate = data ? data[0] : null;
+  const estimate: Estimate = data && data?.data[0];
 
   const [state, setState] = useState<Estimate["state"]>("A FAIRE");
   const [doc_link, setDocLink] = useState("");

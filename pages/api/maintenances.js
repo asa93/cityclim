@@ -16,20 +16,18 @@ export default async (req, res) => {
     let query = supabase
       .from("Maintenances")
       .select(
-        "* , Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
+        "* , Estimates!inner(id), Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
         { count: "exact" }
       )
       .ilike("Units.Places.name", `%${place}%`)
       .ilike("Units.Places.Accounts.name", `%${account}%`);
 
-    console.log(range0, range1);
-    if (range1 - range0 < 100 && range1 - range0 >= 0)
+    if (id) {
+      query = query.eq("id", id);
+    } else if (range1 - range0 < 100 && range1 - range0 >= 0)
       query = query.range(range0, range1);
     else query = query.limit(100);
 
-    if (id) {
-      query = query.eq("id", id);
-    }
     if (role === "CLIENT")
       query = query.eq("Units.Places.Accounts.id", client_id);
 
@@ -44,6 +42,8 @@ export default async (req, res) => {
           reference: r.Units.reference,
           checkpoints_ref: r.Units.References.checkpoints,
           serial: r.Units.serial,
+          estimate_id:
+            r.Estimates.length && r.Estimates[r.Estimates.length - 1]?.id, //returns latest estimate if many
           ...r,
         };
       });
