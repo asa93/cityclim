@@ -9,6 +9,9 @@ const supabase = createClient(
 export default async (req, res) => {
   const { account, place, id } = req.query;
 
+  const role = req.headers["x-user-role"];
+  const client_id = req.headers["x-user-client_id"];
+
   if (req.method == "GET") {
     let query = supabase
       .from("Estimates")
@@ -20,9 +23,10 @@ export default async (req, res) => {
 
       .limit(100);
 
-    if (id) {
-      query = query.eq("id", id);
-    }
+    if (id) query = query.eq("id", id);
+
+    if (role === "CLIENT")
+      query = query.eq("Units.Places.Accounts.id", client_id);
 
     let { data, error } = await query;
 

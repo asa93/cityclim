@@ -26,7 +26,8 @@ export default async (req, res) => {
     if (id) {
       query = query.eq("id", id);
     }
-    if (role === "CLIENT") query = query.eq("id", client_id);
+    if (role === "CLIENT")
+      query = query.eq("Units.Places.Accounts.id", client_id);
 
     let { data, error } = await query;
 

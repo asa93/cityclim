@@ -60,7 +60,7 @@ export default function SideBar() {
             </ListItemButton>
           </Link>
         </ListItem>
-        {role === ROLES.ADMIN && (
+        {(role === ROLES.ADMIN || role === ROLES.CLIENT) && (
           <ListItem disablePadding>
             <Link href={`/estimates`}>
               <ListItemButton>
