@@ -92,7 +92,8 @@ export default function Component() {
         <AddCircleIcon />
       </Button>
 
-      {showForm && (
+      {/*to dev*/}
+      {false && showForm && (
         <>
           <h2>Ajouter machine</h2>
 

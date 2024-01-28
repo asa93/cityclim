@@ -50,7 +50,7 @@ export default function Clients() {
         <AddCircleIcon />
       </Button>
 
-      {showForm && (
+      {false && showForm && (
         <>
           <h2>Ajouter client</h2>
 

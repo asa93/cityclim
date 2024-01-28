@@ -60,7 +60,7 @@ export default function Component() {
         <AddCircleIcon />
       </Button>
 
-      {accounts && showForm && (
+      {false && accounts && showForm && (
         <>
           <h2>Ajouter local</h2>
 
