@@ -71,13 +71,13 @@ export default function Component() {
   );
 
   const [{ data: accounts }] = useAxios({
-    url: process.env.NEXT_PUBLIC_APPURL + "/api/accounts",
+    url: process.env.NEXT_PUBLIC_API + "/api/accounts",
     params: { name: accountFilter2 },
   });
 
   const handleSave = async () => {
     if (newName)
-      await axios.post(process.env.NEXT_PUBLIC_API + "/api/places", {
+      await axios.post(process.env.NEXT_PUBLIC_API + "/api/units", {
         name: newName,
         account: newAccountId,
       });
