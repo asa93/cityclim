@@ -87,7 +87,7 @@ export default function Component() {
         <AddCircleIcon />
       </Button>
 
-      {false && showForm && (
+      {showForm && (
         <>
           <h2>Ajouter Référence</h2>
 
