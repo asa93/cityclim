@@ -77,43 +77,36 @@ export interface Database {
           checkpoints: Json | null
           created_at: string
           done_at: string | null
-          estimate_id: number | null
           id: number
           observations: string | null
           problem: boolean | null
           state: Database["public"]["Enums"]["MAINTENANCE_STATE"] | null
+          todo_at: string | null
           unit: number | null
         }
         Insert: {
           checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
-          estimate_id?: number | null
           id?: number
           observations?: string | null
           problem?: boolean | null
           state?: Database["public"]["Enums"]["MAINTENANCE_STATE"] | null
+          todo_at?: string | null
           unit?: number | null
         }
         Update: {
           checkpoints?: Json | null
           created_at?: string
           done_at?: string | null
-          estimate_id?: number | null
           id?: number
           observations?: string | null
           problem?: boolean | null
           state?: Database["public"]["Enums"]["MAINTENANCE_STATE"] | null
+          todo_at?: string | null
           unit?: number | null
         }
         Relationships: [
-          {
-            foreignKeyName: "Maintenances_estimate_id_fkey"
-            columns: ["estimate_id"]
-            isOneToOne: false
-            referencedRelation: "Estimates"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "Maintenances_unit_fkey"
             columns: ["unit"]
@@ -226,6 +219,7 @@ export interface Database {
       }
       Users: {
         Row: {
+          client_id: number | null
           created_at: string
           email: string
           id: number
@@ -233,6 +227,7 @@ export interface Database {
           role: Database["public"]["Enums"]["ROLE"]
         }
         Insert: {
+          client_id?: number | null
           created_at?: string
           email: string
           id?: number
@@ -240,13 +235,22 @@ export interface Database {
           role?: Database["public"]["Enums"]["ROLE"]
         }
         Update: {
+          client_id?: number | null
           created_at?: string
           email?: string
           id?: number
           password?: string | null
           role?: Database["public"]["Enums"]["ROLE"]
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Users_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "Accounts"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

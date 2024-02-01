@@ -88,7 +88,8 @@ export default function Component() {
                   <TableCell>Machine</TableCell>
                   <TableCell>Etat</TableCell>
                   <TableCell>Problème</TableCell>
-                  <TableCell>Date</TableCell>
+                  <TableCell>A faire</TableCell>
+                  <TableCell>Fait</TableCell>
                 </TableRow>
               </TableHead>
 
@@ -141,7 +142,12 @@ export default function Component() {
                     <TableCell align="left">
                       {r.problem && <ReportProblemIcon color="error" />}
                     </TableCell>
-                    <TableCell align="left">{formatDate(r.done_at)}</TableCell>
+                    <TableCell align="left">
+                      {r.todo_at && formatDate(r.todo_at)}
+                    </TableCell>
+                    <TableCell align="left">
+                      {r.done_at && formatDate(r.done_at)}
+                    </TableCell>
                     <TableCell align="right">
                       <Link href={`/maintenances/${r.id}`}>
                         {" "}

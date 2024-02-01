@@ -94,7 +94,6 @@ export default function Component() {
 
   if (!id) return null;
 
-  console.log("maint", maintenance);
   return (
     <Layout title={"Maintenance #" + id}>
       {(loading || saving) && <LinearProgress />}
@@ -120,7 +119,7 @@ export default function Component() {
           <Grid md={2} xs={6} className="head">
             Local{" "}
           </Grid>
-          <Grid md={2} xs={6} className="head">
+          <Grid md={1} xs={6} className="head">
             Machine{" "}
           </Grid>
 
@@ -132,8 +131,12 @@ export default function Component() {
             # Série{" "}
           </Grid>
 
-          <Grid md={2} xs={6} className="head">
-            A faire le{" "}
+          <Grid md={1} xs={6} className="head">
+            A faire{" "}
+          </Grid>
+
+          <Grid md={1} xs={6} className="head">
+            Fait{" "}
           </Grid>
 
           <Grid md={2} xs={6}>
@@ -142,7 +145,7 @@ export default function Component() {
           <Grid md={2} xs={6}>
             {maintenance.place}{" "}
           </Grid>
-          <Grid md={2} xs={6}>
+          <Grid md={1} xs={6}>
             {maintenance.unit_name} (#{maintenance.unit})
           </Grid>
           <Grid md={2} xs={6}>
@@ -151,8 +154,11 @@ export default function Component() {
           <Grid md={2} xs={6}>
             {maintenance.serial}{" "}
           </Grid>
-          <Grid md={2} xs={6}>
-            {formatDate(maintenance.done_at)}{" "}
+          <Grid md={1} xs={6}>
+            {maintenance.todo_at && formatDate(maintenance.todo_at)}{" "}
+          </Grid>
+          <Grid md={1} xs={6}>
+            {maintenance.done_at && formatDate(maintenance.done_at)}{" "}
           </Grid>
 
           <Grid md={12} xs={12}>
