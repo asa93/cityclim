@@ -43,8 +43,9 @@ export default async (req, res) => {
           reference: r.Units.reference,
           checkpoints_ref: r.Units.References.checkpoints,
           serial: r.Units.serial,
-          estimate_id:
-            r.Estimates.length && r.Estimates[r.Estimates.length - 1]?.id, //returns latest estimate if many
+          estimate_id: r.Estimates.length
+            ? r.Estimates[r.Estimates.length - 1]?.id
+            : null, //returns latest estimate if many
           ...r,
         };
       });

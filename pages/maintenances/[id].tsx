@@ -199,7 +199,7 @@ export default function Component() {
             alignItems="center"
             justifyContent="center"
           >
-            {role !== ROLES.TECHNICIEN ? (
+            {role !== ROLES.TECHNICIEN && maintenance.estimate_id ? (
               <Link
                 href={`/estimates/${maintenance.estimate_id}`}
                 className="white"
@@ -210,7 +210,7 @@ export default function Component() {
               maintenance.estimate_id
             )}
 
-            {!maintenance.estimate_id && (
+            {role === ROLES.ADMIN && !maintenance.estimate_id && (
               <Button variant="contained" onClick={handleCreateEstimate}>
                 Créer devis
               </Button>
