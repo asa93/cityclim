@@ -12,7 +12,7 @@ export default async (req, res) => {
   if (req.method == "GET") {
     let query = supabase
       .from("Units")
-      .select("name, Places!inner ( name, Accounts!inner (name) )  ", {
+      .select("name, Places!inner( name, Accounts!inner(name) )  ", {
         count: "exact",
       })
       .ilike("Places.name", `%${place}%`)
@@ -29,8 +29,8 @@ export default async (req, res) => {
       data = data.map((r) => {
         return {
           name: r.name,
-          place: r.Places.name,
-          account: r.Places.Accounts.name,
+          place: r.Places?.name,
+          account: r.Places?.Accounts?.name,
         };
       });
       res.status(200).json({ data: data, count: count });

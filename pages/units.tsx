@@ -59,8 +59,8 @@ export default function Component() {
             },
           }
         );
-
-        setUnits(res.data.data as Unit[]);
+        console.log(res.data?.data);
+        setUnits([...(res.data?.data as Unit[])]);
         setResCount(res.data.count);
         setLoading(false);
 
@@ -82,6 +82,8 @@ export default function Component() {
         account: newAccountId,
       });
   };
+
+  console.log("units", units);
 
   return (
     <Layout title={"Machines"}>
@@ -135,6 +137,7 @@ export default function Component() {
                   <TableCell align="right">
                     <TextField
                       label="Local"
+                      defaultValue={placeFilter}
                       onChange={(e) => setPlaceFilter(e.target.value)}
                     />
                   </TableCell>
@@ -142,25 +145,29 @@ export default function Component() {
                   <TableCell align="right">
                     <TextField
                       label="Client"
+                      defaultValue={accountFilter}
                       onChange={(e) => setAccountFilter(e.target.value)}
                     />
                   </TableCell>
                 </TableRow>
               </TableHead>
 
-              <TableBody>
-                {units.map((r) => (
-                  <TableRow
-                    key={r.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {r.name}
-                    </TableCell>
-                    <TableCell align="right">{r.place}</TableCell>
-                    <TableCell align="right">{r.account}</TableCell>
-                  </TableRow>
-                ))}
+              <TableBody key={units.length}>
+                {units.map((r) => {
+                  console.log("r", r.place);
+                  return (
+                    <TableRow
+                      key={r.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {r.name}
+                      </TableCell>
+                      <TableCell align="right">{r.place}</TableCell>
+                      <TableCell align="right">{r.account}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
