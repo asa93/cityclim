@@ -59,7 +59,7 @@ export default function Component() {
             },
           }
         );
-        console.log(res.data?.data);
+
         setUnits([...(res.data?.data as Unit[])]);
         setResCount(res.data.count);
         setLoading(false);
@@ -82,8 +82,6 @@ export default function Component() {
         account: newAccountId,
       });
   };
-
-  console.log("units", units);
 
   return (
     <Layout title={"Machines"}>
@@ -154,7 +152,6 @@ export default function Component() {
 
               <TableBody key={units.length}>
                 {units.map((r) => {
-                  console.log("r", r.place);
                   return (
                     <TableRow
                       key={r.id}
