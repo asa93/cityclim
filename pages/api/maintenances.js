@@ -52,9 +52,9 @@ export default async (req, res) => {
       res.status(200).json({ data: data, count: count });
     }
   } else if (req.method == "POST") {
-    const { id, state, problem, observations, checkpoints } = req.body;
+    const { id, state, problem, observations, checkpoints, done_at } = req.body;
 
-    let object = { problem, state, observations, checkpoints };
+    let object = { problem, state, observations, checkpoints, done_at };
 
     const { data, error } = await supabase
       .from("Maintenances")

@@ -14,7 +14,7 @@ import Link from "next/link";
 
 import { userState } from "../../context/user";
 import { useHookstate } from "@hookstate/core";
-import { ROLES } from "../../consts";
+import { MAINTENANCE_STATE, ROLES } from "../../consts";
 
 const states = [
   {
@@ -63,12 +63,14 @@ export default function Component() {
 
   const handleSave = async () => {
     setSaving(true);
+    const done_at = state === MAINTENANCE_STATE.FAIT ? new Date() : undefined;
     await axios.post(process.env.NEXT_PUBLIC_API + "/api/maintenances", {
       id,
       state,
       problem,
       observations,
       checkpoints,
+      done_at,
     });
     setSaving(false);
     showToast(true);
