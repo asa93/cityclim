@@ -16,7 +16,7 @@ export default async (req, res) => {
     let query = supabase
       .from("Maintenances")
       .select(
-        "* , Estimates!inner(id), Units!inner( id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
+        "* , Estimates!inner(id), Units!inner( name, id, reference, serial, Places!inner (name, Accounts!inner(name) ), References!inner(checkpoints) )",
         { count: "exact" }
       )
       .ilike("Units.Places.name", `%${place}%`)
@@ -37,6 +37,7 @@ export default async (req, res) => {
     else {
       data = data.map((r) => {
         return {
+          unit_name: r.Units.name,
           place: r.Units.Places.name,
           account: r.Units.Places.Accounts.name,
           reference: r.Units.reference,

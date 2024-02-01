@@ -143,7 +143,7 @@ export default function Component() {
             {maintenance.place}{" "}
           </Grid>
           <Grid md={2} xs={6}>
-            {maintenance.unit}{" "}
+            {maintenance.unit_name} (#{maintenance.unit})
           </Grid>
           <Grid md={2} xs={6}>
             {maintenance.reference}{" "}
