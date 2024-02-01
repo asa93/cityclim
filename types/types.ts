@@ -12,7 +12,7 @@ export type Maintenance = Database["public"]["Tables"]["Maintenances"]["Row"] & 
 
 export type Reference = Database["public"]["Tables"]["References"]["Row"]
 
-export type Estimate = Database["public"]["Tables"]["Estimates"]["Row"] & { account: string, place: string, reference: string, serial: string }
+export type Estimate = Database["public"]["Tables"]["Estimates"]["Row"] & { unit_name: string, account: string, place: string, reference: string, serial: string }
 
 export type UserSession = {
     email: string,

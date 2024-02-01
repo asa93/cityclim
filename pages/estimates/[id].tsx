@@ -110,7 +110,7 @@ export default function Component() {
             {estimate.place}{" "}
           </Grid>
           <Grid md={2} xs={6}>
-            {estimate.unit}{" "}
+            {estimate.unit_name} (#{estimate.unit})
           </Grid>
 
           <Grid md={2} xs={6}>
