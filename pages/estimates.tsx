@@ -141,7 +141,7 @@ export default function Component() {
                     <TableCell align="right"> {r.account}</TableCell>
 
                     <TableCell align="right">{r.place}</TableCell>
-                    <TableCell align="right">{r.unit}</TableCell>
+                    <TableCell align="right">{r.unit_name}</TableCell>
                     <TableCell align="right">{r.reference}</TableCell>
                     <TableCell align="right">{r.maintenance}</TableCell>
 
