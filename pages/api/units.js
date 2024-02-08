@@ -22,7 +22,7 @@ export default async (req, res) => {
       query = query.range(range0, range1);
     else query = query.limit(100);
 
-    let { data, error, count } = await query;
+    let { data, error, count } = await query.order("id", { ascending: true });
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {

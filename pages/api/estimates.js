@@ -32,7 +32,7 @@ export default async (req, res) => {
     if (role === "CLIENT")
       query = query.eq("Units.Places.Accounts.id", client_id);
 
-    let { data, error, count } = await query;
+    let { data, error, count } = await query.order("id", { ascending: true });
 
     if (error) return res.status(400).json({ data: null, error: error });
     else {
