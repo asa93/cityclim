@@ -130,6 +130,7 @@ export default function Component() {
             <Table sx={{}} aria-label="simple table">
               <TableHead>
                 <TableRow>
+                  <TableCell>#</TableCell>
                   <TableCell>Nom</TableCell>
 
                   <TableCell align="right">
@@ -157,9 +158,8 @@ export default function Component() {
                       key={r.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {r.name}
-                      </TableCell>
+                      <TableCell align="right">{r.id}</TableCell>
+                      <TableCell component="th">{r.name}</TableCell>
                       <TableCell align="right">{r.place}</TableCell>
                       <TableCell align="right">{r.account}</TableCell>
                     </TableRow>
