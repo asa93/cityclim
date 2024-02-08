@@ -219,7 +219,11 @@ export default function Component() {
             )}
 
             {role === ROLES.ADMIN && !maintenance.estimate_id && (
-              <Button variant="contained" onClick={handleCreateEstimate}>
+              <Button
+                variant="contained"
+                onClick={handleCreateEstimate}
+                className="secondary"
+              >
                 Créer devis
               </Button>
             )}

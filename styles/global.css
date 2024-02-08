@@ -50,7 +50,13 @@ img {
   margin-bottom: 1em !important;
   font-weight: bold !important;
 }
+.MuiButton-root.secondary {
+  background-color: #9935c0 !important;
+}
 
+.MuiButton-root.secondary:hover {
+  background-color: #9f51be !important;
+}
 .MuiButton-root:hover {
   background-color: #0fbd7a !important;
 }
