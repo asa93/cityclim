@@ -12,7 +12,7 @@ export default async (req, res) => {
   if (req.method == "GET") {
     let query = supabase
       .from("Units")
-      .select("id, name, Places!inner( name, Accounts!inner(name) )  ", {
+      .select("id, name, doc, Places!inner( name, Accounts!inner(name) )  ", {
         count: "exact",
       })
       .ilike("Places.name", `%${place}%`)

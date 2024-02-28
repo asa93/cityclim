@@ -22,6 +22,8 @@ import Divider from "@mui/material/Divider";
 import { Unit } from "../types/types";
 import { resultPerPage } from "../consts";
 
+import Link from "next/link";
+
 export default function Component() {
   const [units, setUnits] = useState<Unit[]>([]);
 
@@ -132,6 +134,7 @@ export default function Component() {
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Nom</TableCell>
+                  <TableCell>Doc</TableCell>
 
                   <TableCell align="right">
                     <TextField
@@ -152,7 +155,7 @@ export default function Component() {
               </TableHead>
 
               <TableBody key={units.length}>
-                {units.map((r) => {
+                {units.map((r: Unit) => {
                   return (
                     <TableRow
                       key={r.id}
@@ -160,6 +163,11 @@ export default function Component() {
                     >
                       <TableCell align="right">{r.id}</TableCell>
                       <TableCell component="th">{r.name}</TableCell>
+                      <TableCell component="th">
+                        <Link target="_blank" href={r.doc ?? ""}>
+                          {r.doc}
+                        </Link>
+                      </TableCell>
                       <TableCell align="right">{r.place}</TableCell>
                       <TableCell align="right">{r.account}</TableCell>
                     </TableRow>

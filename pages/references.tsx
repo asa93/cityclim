@@ -20,6 +20,8 @@ import axios from "axios";
 import { Reference } from "../types/types";
 import Snackbar from "@mui/material/Snackbar";
 
+import Link from "next/link";
+
 export default function Component() {
   const [accountFilter, setAccountFilter] = useState("");
 
@@ -153,7 +155,13 @@ export default function Component() {
                   >
                     <TableCell align="left"> {r.id}</TableCell>
                     <TableCell align="left"> {r.name}</TableCell>
-                    <TableCell align="left"> {r.doc}</TableCell>
+                    <TableCell align="left">
+                      {" "}
+                      <Link target="_blank" href={r.doc ?? ""}>
+                        {" "}
+                        {r.doc}{" "}
+                      </Link>{" "}
+                    </TableCell>
                     <TableCell align="left">
                       {formatCheckpoints(r.checkpoints)}
                     </TableCell>
